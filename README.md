@@ -1,5 +1,4 @@
 # N-Mario
-=======
 
 ## Background Story
 
