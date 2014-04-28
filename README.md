@@ -1,4 +1,4 @@
 N-Mario
 =======
 
-Multiplayer realtime game used to solve the N-Queen problem.
+Multiplayer real time game used to solve the N-Queen problem.
