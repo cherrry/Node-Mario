@@ -23,7 +23,7 @@ io.sockets.on('connection', function(socket) {
 */
 var port = process.env.PORT || 8080;
 var io = require('socket.io').listen(port);
-io.configure('origins', 'localhost, cherrry.github.io');
+io.configure('origins', 'localhost:8000, cherrry.github.io');
 
 io.sockets.on('connection', function (socket) {
   socket.emit('message', { hello: 'world' });
