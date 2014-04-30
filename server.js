@@ -18,15 +18,20 @@ function random_string(length) {
 
 var guests = new Object();
 io.sockets.on('connection', function(socket) {
-  socket.emit('message', { message: 'Hello' });
+  var id, name, room;
+
+  socket.on('join', function(data) {
+    // when user join room
+    id = random_string(8);
+    if (data.id != null) {
+      id = data.id;
+    }
+    name = data.name;
+    room = 'room_' + data.room;
+    socket.join(room);
+
+    socket.emit('join accept', { id: id });
+    io.sockets.in(room).emit('new player', { id: id, name: name });    
+  });
 });
 
-/*
-var port = process.env.PORT || 8080;
-var io = require('socket.io').listen(port);
-io.set('origins', 'localhost:8000, cherrry.github.io');
-
-io.sockets.on('connection', function (socket) {
-  socket.emit('message', { hello: 'world' });
-});
-*/
