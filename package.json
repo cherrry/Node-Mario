@@ -1,0 +1,21 @@
+{
+  "name": "n_mario",
+  "version": "0.0.0",
+  "description": "Multiplayer realtime game used to solve the N-Queen problem.",
+  "main": "server.js",
+  "dependencies": {
+    "socket.io": "~0.9.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@heroku.com:n-mario.git"
+  },
+  "keywords": [
+    "nodejs",
+    "websocket",
+    "socket-io",
+    "n-mario"
+  ],
+  "author": "Cherry",
+  "license": "MIT"
+}
