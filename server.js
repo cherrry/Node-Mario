@@ -5,7 +5,7 @@ server.listen(port);
 console.log(port);
 
 var io = require('socket.io').listen(server);
-io.configure('origins', '*:*');
+io.configure('origins', 'http://localhost:*, http://cherrry.github.io:*, https://cherrry.github.io:*');
 
 var char_list = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 function random_string(length) {
