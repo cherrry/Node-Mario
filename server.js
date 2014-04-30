@@ -1,10 +1,11 @@
+/*
 var port = process.env.PORT || 8080;
 var server = require('http').createServer();
 server.listen(port);
 console.log(port);
 
 var io = require('socket.io').listen(server);
-io.configure('origins', 'cherrry.github.io');
+io.configure('origins', 'localhost, cherrry.github.io');
 
 var char_list = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 function random_string(length) {
@@ -18,4 +19,11 @@ function random_string(length) {
 var guests = new Object();
 io.sockets.on('connection', function(socket) {
   socket.emit('message', { message: 'Hello' });
+});
+*/
+var port = process.env.PORT || 8080;
+var io = require('socket.io').listen(port);
+
+io.sockets.on('connection', function (socket) {
+  socket.emit('message', { hello: 'world' });
 });
