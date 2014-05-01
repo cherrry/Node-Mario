@@ -100,7 +100,7 @@ io.sockets.on('connection', function (socket) {
         accept = true;
 
         // assign player to room
-        room.players[i] = { id: player.id, name: player.name, color: next_color(room, -1) };
+        room.players[i] = { id: player.id, name: player.name, color: next_color(room, -1), ready: false };
         player.room = { number: data.room, position: i };
         break;
       }
@@ -149,7 +149,7 @@ io.sockets.on('connection', function (socket) {
   });
 
   // change color
-  socket.on('change color request', function(data) {
+  socket.on('change color request', function (data) {
     if (player.room.number == -1) {
       // ignore request from invalid user
       return;
@@ -159,6 +159,17 @@ io.sockets.on('connection', function (socket) {
     room.players[player.room.position].color = next_color(room, color);
     io.sockets.in('room_' + player.room.number).emit('room status change', room);
     socket.broadcast.in('idle').emit('room status change', rooms);
+  });
+
+  // ready state change
+  socket.on('ready state change', function (data) {
+    if (player.room.number == -1) {
+      return;
+    }
+
+    var room = rooms[player.room.number];
+    room.players[player.room.position].ready = data.ready;
+    io.sockets.in('room_' + player.room.number).emit('room status change', room);
   });
 
   // action of disconnecting
