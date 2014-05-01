@@ -15,7 +15,7 @@ var io = require('socket.io').listen(server);
 io.configure('origins', 'http://localhost:*', 'http://cherrry.github.io:*', 'https://cherrry.github.io:*');
 
 
-// function for generating new id
+// useful functions
 var random_string = (function() {
   var char_list = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
   return function(length) {
@@ -118,7 +118,6 @@ io.sockets.on('connection', function (socket) {
       // reject as the game room is full
       socket.emit('join room response', { status: 'reject' });
     }
-
   });
 
   // leave room
@@ -182,6 +181,8 @@ io.sockets.on('connection', function (socket) {
 
 
 /*
+// Written by Francis, should not delete
+
 var guests = new Object();
 io.sockets.on('connection', function(socket) {
 
