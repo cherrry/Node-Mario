@@ -1,28 +1,145 @@
+/*
 var rooms = new Array(6);
 for (var i = 0; i < 6; i++) {
   rooms[i] = Object();
   rooms[i]['length'] = 0;
   rooms[i]['players'] = [null, null, null, null];
 }
-var port = process.env.PORT || 8080;
-var server = require('http').createServer();
+*/
+
+// initialize the server
+var port = process.env.PORT || 8080,
+    server = require('http').createServer();
 server.listen(port);
-console.log(port);
-
 var io = require('socket.io').listen(server);
-io.configure('origins', 'http://localhost:*, http://cherrry.github.io:*, https://cherrry.github.io:*');
+io.configure('origins', 'http://localhost:*', 'http://cherrry.github.io:*', 'https://cherrry.github.io:*');
 
-var char_list = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-function random_string(length) {
-  ret = '';
-  for (i = 0; i < length; i++) {
-    ret += char_list.charAt(Math.floor(Math.random() * 60));
+
+// function for generating new id
+var random_string = (function() {
+  var char_list = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+  return function(length) {
+    var ret = '';
+    for (var i = 0; i < length; i++) {
+      ret += char_list.charAt(Math.floor(Math.random() * 60));
+    }
+    return ret;
+  };
+})();
+var next_color = function(room, old_color) {
+  console.log(room.players);
+  var color = Array(8);
+  for (var i = 0; i < 8; i++) {
+    color[i] = 0;
   }
-  return ret;
+  for (var i = 0; i < 4; i++) {
+    if (room.players[i] != null) {
+      color[room.players[i].color] = 1;
+    }
+  }
+  for (var i = old_color + 1; i < 8; i++) {
+    if (color[i] == 0) return i;
+  }
+  for (var i = 0; i < old_color; i++) {
+    if (color[i] == 0) return i;
+  }
+  return -1;
+};
+
+// player data
+var players = Object(),
+    rooms = Array(6);
+
+for (var i = 0; i < 6; i++) {
+  rooms[i] = { number: i, players: [ null, null, null, null ] };
 }
 
+
+// accepting new connection
+io.sockets.on('connection', function (socket) {
+  var player = {
+    id: random_string(8),
+    name: 'Player',
+    room: { number: -1, position: -1 }
+  };
+  players[player.id] = player;
+
+  socket.join('idle');
+
+  socket.on('connect request', function (data) {
+    console.log('new connection: ' + data.name);
+    player.name = data.name;
+    socket.emit('connect response', { player: { id: player.id }, rooms: rooms });
+  });
+
+  socket.on('name change', function (data) {
+    player.name = data.name;
+
+    if (player.room != -1) {
+      // boardcast name change to idle player and player in same room
+      rooms[player.room.number].players[player.room.position].name = player.name;
+
+      socket.broadcast.in('room_' + player.room.number).emit('room status change', rooms);
+      socket.broadcast.in('idle').emit('room status change', rooms);
+    }
+  });
+
+  socket.on('join room request', function (data) {
+
+    var room = rooms[data.room], accept = false;
+
+    if (player.room.number != -1) {
+      return;
+    }
+
+    for (var i = 0; i < 4; i++) {
+
+      if (room.players[i] == null) {
+        // there is empty space
+        accept = true;
+
+        // assign player to room
+        room.players[i] = { id: player.id, name: player.name, color: next_color(room, -1) };
+        player.room = { number: data.room, position: i };
+
+        socket.leave('idle');
+        socket.join('room_' + player.room.number);
+
+        break;
+
+      }
+    }
+
+    if (accept) {
+      socket.join('room_' + player.room.number);
+      socket.emit('join room response', { status: 'accept', room: room });
+
+      socket.broadcast.in('room_' + player.room.number).emit('room status change', rooms);
+      socket.broadcast.in('idle').emit('room status change', rooms);
+    } else {
+      socket.emit('join room response', { status: 'reject' });
+    }
+
+  });
+
+  socket.on('disconnect', function () {
+    // remove player in any room
+    if (player.room.number != -1) {
+      rooms[player.room.number].players[player.room.position] = null;
+      io.sockets.emit('room status change', rooms);
+    }
+    // remove player from memory
+    delete players[player.id];
+
+  })
+});
+
+
+/*
 var guests = new Object();
 io.sockets.on('connection', function(socket) {
+
+  var identity = new Player(socket);
   var id, name, room, pos, color, roomno;
 
   socket.on('fetch players', function(data) {
@@ -67,4 +184,4 @@ io.sockets.on('connection', function(socket) {
     }
   });
 });
-
+*/
