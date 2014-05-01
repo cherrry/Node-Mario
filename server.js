@@ -66,24 +66,26 @@ io.sockets.on('connection', function (socket) {
 
   socket.join('idle');
 
+  // player connect to server
   socket.on('connect request', function (data) {
     console.log('new connection: ' + data.name);
     player.name = data.name;
     socket.emit('connect response', { player: { id: player.id }, rooms: rooms });
   });
 
+  // player change his/her name
   socket.on('name change', function (data) {
     player.name = data.name;
 
-    if (player.room != -1) {
+    if (player.room.number != -1) {
       // boardcast name change to idle player and player in same room
       rooms[player.room.number].players[player.room.position].name = player.name;
-
-      socket.broadcast.in('room_' + player.room.number).emit('room status change', rooms);
+      io.sockets.in('room_' + player.room.number).emit('room status change', rooms[player.room.number]);
       socket.broadcast.in('idle').emit('room status change', rooms);
     }
   });
 
+  // join a game room
   socket.on('join room request', function (data) {
 
     var room = rooms[data.room], accept = false;
@@ -93,7 +95,6 @@ io.sockets.on('connection', function (socket) {
     }
 
     for (var i = 0; i < 4; i++) {
-
       if (room.players[i] == null) {
         // there is empty space
         accept = true;
@@ -101,32 +102,49 @@ io.sockets.on('connection', function (socket) {
         // assign player to room
         room.players[i] = { id: player.id, name: player.name, color: next_color(room, -1) };
         player.room = { number: data.room, position: i };
-
-        socket.leave('idle');
-        socket.join('room_' + player.room.number);
-
         break;
-
       }
     }
 
     if (accept) {
+      // accepting player request
+      socket.leave('idle');
       socket.join('room_' + player.room.number);
       socket.emit('join room response', { status: 'accept', room: room });
 
-      socket.broadcast.in('room_' + player.room.number).emit('room status change', rooms);
+      socket.broadcast.in('room_' + player.room.number).emit('room status change', room);
       socket.broadcast.in('idle').emit('room status change', rooms);
     } else {
+      // reject as the game room is full
       socket.emit('join room response', { status: 'reject' });
     }
 
   });
 
+  // leave room
+  socket.on('leave room request', function (data) {
+    if (player.room.number != -1) {
+
+      rooms[player.room.number].players[player.room.position] = null;
+
+      socket.broadcast.in('room_' + player.room.number).emit('room status change', rooms[player.room.number]);
+      socket.broadcast.in('idle').emit('room status change', rooms);
+
+      socket.leave('room_' + player.room.number);
+      socket.join('idle');
+
+      player.room = { number: -1, position: -1 };
+      socket.emit('leave room response', { status: 'accept', rooms: rooms });
+    }
+  });
+
+  // action of disconnecting
   socket.on('disconnect', function () {
     // remove player in any room
     if (player.room.number != -1) {
       rooms[player.room.number].players[player.room.position] = null;
-      io.sockets.emit('room status change', rooms);
+      socket.broadcast.in('room_' + player.room.number).emit('room status change', rooms[player.room.number]);
+      socket.broadcast.in('idle').emit('room status change', rooms);
     }
     // remove player from memory
     delete players[player.id];
