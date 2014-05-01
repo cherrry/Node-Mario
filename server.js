@@ -138,6 +138,30 @@ io.sockets.on('connection', function (socket) {
     }
   });
 
+  // chatting
+  socket.on('chat message send', function (data) {
+    if (player.room.number == -1) {
+      // ignore player message when he/she is not in a room
+      return;
+    }
+
+    io.sockets.in('room_' + player.room.number).emit('chat message recieved', { name: player.name, message: data.message });
+    //console.log('chat message is broadcasted: ' + JSON.stringify(data));
+  });
+
+  // change color
+  socket.on('change color request', function(data) {
+    if (player.room.number == -1) {
+      // ignore request from invalid user
+      return;
+    }
+    var room = rooms[player.room.number];
+    var color = room.players[player.room.position].color;
+    room.players[player.room.position].color = next_color(room, color);
+    io.sockets.in('room_' + player.room.number).emit('room status change', room);
+    socket.broadcast.in('idle').emit('room status change', rooms);
+  });
+
   // action of disconnecting
   socket.on('disconnect', function () {
     // remove player in any room
@@ -148,6 +172,10 @@ io.sockets.on('connection', function (socket) {
     }
     // remove player from memory
     delete players[player.id];
+
+    for (var room in io.sockets.manager.roomClients[socket.id]) {
+      socket.leave(room);
+    }
 
   })
 });
