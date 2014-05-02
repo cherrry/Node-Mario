@@ -133,6 +133,24 @@ io.sockets.on('connection', function (socket) {
     //console.log(room);
   });
 
+  // start game
+  socket.on('start game request'), function (data) {
+    var readyCount = 0, totalPlayer = 0;
+    for (var i = 0; i < 4; i++) {
+      if (rooms[player.room.number].players[i]){
+        totalPlayer++;
+        if(rooms[player.room.number].players[i].ready)
+          readyCount++;
+      }
+    }
+
+    if(readyCount == totalPlayer && totalPlayer > 0){
+      io.sockets.in('room_' + player.room.number).emit('start game response', { status: 'accept' });
+    }else{
+      socket.emit('start game response', {status: 'reject'});
+    }
+  }
+
   // leave room
   socket.on('leave room request', function (data) {
     if (player.room.number == -1) {
