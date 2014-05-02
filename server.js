@@ -93,10 +93,16 @@ io.sockets.on('connection', function (socket) {
   // join a game room
   socket.on('join room request', function (data) {
 
-    var room = rooms[data.room], accept = false;
+    var room = rooms[data.room], accept = false, isOwner = true;
 
     if (player.room.number != -1) {
       return;
+    }
+
+    for (var i = 0; i < 4; i++) {
+      if (room.players[i] != null && room.players[i].isOwner) {
+        isOwner = false;
+      }
     }
 
     for (var i = 0; i < 4; i++) {
@@ -105,7 +111,7 @@ io.sockets.on('connection', function (socket) {
         accept = true;
 
         // assign player to room
-        room.players[i] = { id: player.id, name: player.name, color: next_color(room, -1), ready: false };
+        room.players[i] = { id: player.id, name: player.name, color: next_color(room, -1), ready: false, isOwner: isOwner };
         player.room = { number: data.room, position: i };
         break;
       }
@@ -127,19 +133,39 @@ io.sockets.on('connection', function (socket) {
 
   // leave room
   socket.on('leave room request', function (data) {
-    if (player.room.number != -1) {
-
-      rooms[player.room.number].players[player.room.position] = null;
-
-      socket.broadcast.in('room_' + player.room.number).emit('room status change', rooms[player.room.number]);
-      socket.broadcast.in('idle').emit('room status change', rooms);
-
-      socket.leave('room_' + player.room.number);
-      socket.join('idle');
-
-      player.room = { number: -1, position: -1 };
-      socket.emit('leave room response', { status: 'accept', rooms: rooms });
+    if (player.room.number == -1) {
+      return;
     }
+
+    var room = rooms[player.room.number];
+
+    if (room.players[player.room.position].isOwner) {
+      var candidate = Array(), candidate_count = 0, nextOwner;
+      for (var i = 0; i < 4; i++) {
+        if (room.players[i] != null) {
+          //console.log('candidate: ' + JSON.stringify(room.players[i]));
+          candidate[candidate_count++] = room.players[i];
+        }
+      }
+      if (candidate_count > 0) {
+        nextOwner = candidate[Math.floor(Math.random() * candidate_count)];
+      }
+      //console.log('next owner: ' + JSON.stringify(nextOwner));
+      nextOwner.isOwner = true;
+    }
+
+    room.players[player.room.position] = null;
+
+    //console.log('after someone leave: ' + JSON.stringify(room));
+
+    socket.broadcast.in('room_' + player.room.number).emit('room status change', rooms[player.room.number]);
+    socket.broadcast.in('idle').emit('room status change', rooms);
+
+    socket.leave('room_' + player.room.number);
+    socket.join('idle');
+
+    player.room = { number: -1, position: -1 };
+    socket.emit('leave room response', { status: 'accept', rooms: rooms });
   });
 
   // chatting
