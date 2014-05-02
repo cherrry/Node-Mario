@@ -8,7 +8,7 @@ for (var i = 0; i < 6; i++) {
 */
 
 // initialize the server
-var port = process.env.PORT || 8080,
+var port = process.env.PORT || 21474,
     server = require('http').createServer();
 server.listen(port);
 var io = require('socket.io').listen(server);
@@ -71,6 +71,11 @@ io.sockets.on('connection', function (socket) {
     console.log('new connection: ' + data.name);
     player.name = data.name;
     socket.emit('connect response', { player: { id: player.id }, rooms: rooms });
+  });
+
+  // measure network latency
+  socket.on('ping', function () {
+    socket.emit('pong');
   });
 
   // player change his/her name
@@ -186,8 +191,7 @@ io.sockets.on('connection', function (socket) {
     for (var room in io.sockets.manager.roomClients[socket.id]) {
       socket.leave(room);
     }
-
-  })
+  });
 });
 
 
