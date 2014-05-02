@@ -51,7 +51,7 @@ var players = Object(),
     rooms = Array(6);
 
 for (var i = 0; i < 6; i++) {
-  rooms[i] = { number: i, players: [ null, null, null, null ] };
+  rooms[i] = { number: i, players: [ null, null, null, null ], state: 'wait' };
 }
 
 
@@ -119,6 +119,15 @@ io.sockets.on('connection', function (socket) {
 
     if (accept) {
       // accepting player request
+
+      // check if room become full
+      room.state = 'full';
+      for (var i = 0; i < 4; i++) {
+        if (room.players[i] == null) {
+          room.state = 'wait';
+        }
+      }
+
       socket.leave('idle');
       socket.join('room_' + player.room.number);
       socket.emit('join room response', { status: 'accept', room: room });
@@ -140,6 +149,8 @@ io.sockets.on('connection', function (socket) {
     }
 
     var room = rooms[player.room.number];
+
+    room.state = 'wait';
 
     // choose next owner
     if (room.players[player.room.position].isOwner) {
@@ -208,6 +219,10 @@ io.sockets.on('connection', function (socket) {
     // remove player in any room
     if (player.room.number != -1) {
       var room = rooms[player.room.number];
+
+      if (room.state != 'play') {
+        room.state = 'wait';
+      }
 
       // choose next owner
       if (room.players[player.room.position].isOwner) {
