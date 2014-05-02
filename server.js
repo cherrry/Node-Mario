@@ -11,7 +11,7 @@ for (var i = 0; i < 6; i++) {
 var port = process.env.PORT || 21474,
     server = require('http').createServer();
 server.listen(port);
-var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(server, { log: false });
 io.configure('origins', 'http://localhost:*', 'http://cherrry.github.io:*', 'https://cherrry.github.io:*');
 
 
@@ -27,7 +27,7 @@ var random_string = (function() {
   };
 })();
 var next_color = function(room, old_color) {
-  console.log(room.players);
+  //console.log(room.players);
   var color = Array(8);
   for (var i = 0; i < 8; i++) {
     color[i] = 0;
@@ -68,7 +68,7 @@ io.sockets.on('connection', function (socket) {
 
   // player connect to server
   socket.on('connect request', function (data) {
-    console.log('new connection: ' + data.name);
+    //console.log('new connection: ' + data.name);
     player.name = data.name;
     socket.emit('connect response', { player: { id: player.id }, rooms: rooms });
   });
