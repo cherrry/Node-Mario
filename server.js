@@ -43,7 +43,7 @@ var players = Object(),
     rooms = Array(6);
 
 for (var i = 0; i < 6; i++) {
-  rooms[i] = { number: i, players: [ null, null, null, null ], state: 'wait', settings: { world: 0, life: 3 } };
+  rooms[i] = { number: i, players: [ null, null, null, null ], state: 'wait', settings: { world: 1, life: 3 } };
 }
 
 
@@ -136,7 +136,15 @@ io.sockets.on('connection', function (socket) {
 
   // start game
   socket.on('start game request', function (data) {
+    if (player.room.number == -1) {
+      return;
+    }
+    var room = rooms[player.room.number];
     var readyCount = 0, totalPlayer = 0;
+    if (!room.players[player.room.position].isOwner) {
+      return;
+    }
+
     for (var i = 0; i < 4; i++) {
       if (rooms[player.room.number].players[i]){
         totalPlayer++;
@@ -226,7 +234,8 @@ io.sockets.on('connection', function (socket) {
     if (data.life) {
       room.settings.life = data.life;
     }
-    console.log(room.settings);
+    
+    socket.broadcast.in('room_' + player.room.number).emit('room settings changed', room.settings);
   });
 
   // ready state change
