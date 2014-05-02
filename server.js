@@ -158,7 +158,7 @@ io.sockets.on('connection', function (socket) {
     }else{
       socket.emit('start game response', {status: 'reject'});
     }
-  }
+  });
 
   // leave room
   socket.on('leave room request', function (data) {
