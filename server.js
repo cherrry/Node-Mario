@@ -43,7 +43,7 @@ var players = Object(),
     rooms = Array(6);
 
 for (var i = 0; i < 6; i++) {
-  rooms[i] = { number: i, players: [ null, null, null, null ], state: 'wait' };
+  rooms[i] = { number: i, players: [ null, null, null, null ], state: 'wait', settings: { world: 0, life: 3 } };
 }
 
 
@@ -211,6 +211,22 @@ io.sockets.on('connection', function (socket) {
     room.players[player.room.position].color = next_color(room, color);
     io.sockets.in('room_' + player.room.number).emit('room status change', room);
     socket.broadcast.in('idle').emit('room status change', rooms);
+  });
+
+  // change setting
+  socket.on('change settings', function (data) {
+    if (player.room.number == -1) {
+      return;
+    }
+
+    var room = rooms[player.room.number];
+    if (data.world) {
+      room.settings.world = data.world;
+    }
+    if (data.life) {
+      room.settings.life = data.life;
+    }
+    console.log(room.settings);
   });
 
   // ready state change
