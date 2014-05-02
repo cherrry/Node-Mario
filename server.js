@@ -129,6 +129,8 @@ io.sockets.on('connection', function (socket) {
       // reject as the game room is full
       socket.emit('join room response', { status: 'reject' });
     }
+
+    //console.log(room);
   });
 
   // leave room
@@ -139,21 +141,19 @@ io.sockets.on('connection', function (socket) {
 
     var room = rooms[player.room.number];
 
+    // choose next owner
     if (room.players[player.room.position].isOwner) {
       var candidate = Array(), candidate_count = 0, nextOwner;
       for (var i = 0; i < 4; i++) {
-        if (room.players[i] != null) {
-          //console.log('candidate: ' + JSON.stringify(room.players[i]));
+        if (room.players[i] != null && i != player.room.position) {
           candidate[candidate_count++] = room.players[i];
         }
       }
       if (candidate_count > 0) {
         nextOwner = candidate[Math.floor(Math.random() * candidate_count)];
+        nextOwner.isOwner = true;
       }
-      //console.log('next owner: ' + JSON.stringify(nextOwner));
-      nextOwner.isOwner = true;
     }
-
     room.players[player.room.position] = null;
 
     //console.log('after someone leave: ' + JSON.stringify(room));
@@ -207,7 +207,24 @@ io.sockets.on('connection', function (socket) {
   socket.on('disconnect', function () {
     // remove player in any room
     if (player.room.number != -1) {
-      rooms[player.room.number].players[player.room.position] = null;
+      var room = rooms[player.room.number];
+
+      // choose next owner
+      if (room.players[player.room.position].isOwner) {
+        var candidate = Array(), candidate_count = 0, nextOwner;
+        for (var i = 0; i < 4; i++) {
+          if (room.players[i] != null && i != player.room.position) {
+            candidate[candidate_count++] = room.players[i];
+          }
+        }
+        if (candidate_count > 0) {
+          nextOwner = candidate[Math.floor(Math.random() * candidate_count)];
+          nextOwner.isOwner = true;
+        }
+      }
+      room.players[player.room.position] = null;
+
+      // broadcast about room status change
       socket.broadcast.in('room_' + player.room.number).emit('room status change', rooms[player.room.number]);
       socket.broadcast.in('idle').emit('room status change', rooms);
     }
