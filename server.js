@@ -143,7 +143,7 @@ io.sockets.on('connection', function (socket) {
   });
 
   // start game
-  socket.on('start game request'), function (data) {
+  socket.on('start game request', function (data) {
     var readyCount = 0, totalPlayer = 0;
     for (var i = 0; i < 4; i++) {
       if (rooms[player.room.number].players[i]){
@@ -153,9 +153,9 @@ io.sockets.on('connection', function (socket) {
       }
     }
 
-    if(readyCount == totalPlayer && totalPlayer > 0){
+    if (readyCount == totalPlayer && totalPlayer > 0) {
       io.sockets.in('room_' + player.room.number).emit('start game response', { status: 'accept' });
-    }else{
+    } else {
       socket.emit('start game response', {status: 'reject'});
     }
   });
