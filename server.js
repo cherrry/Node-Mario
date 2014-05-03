@@ -91,6 +91,11 @@ io.sockets.on('connection', function (socket) {
       return;
     }
 
+    if (room.state == 'play') {
+      socket.emit('join room response', { status: 'reject' });
+      return;
+    }
+
     for (var i = 0; i < 4; i++) {
       if (room.players[i] != null && room.players[i].isOwner) {
         isOwner = false;
