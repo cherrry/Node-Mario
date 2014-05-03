@@ -154,7 +154,9 @@ io.sockets.on('connection', function (socket) {
     }
 
     if (readyCount == totalPlayer && totalPlayer > 0) {
+      room.state = 'play';
       io.sockets.in('room_' + player.room.number).emit('start game response', { status: 'accept' });
+      socket.broadcast.in('idle').emit('room status change', rooms);
     } else {
       socket.emit('start game response', {status: 'reject'});
     }
@@ -203,8 +205,9 @@ io.sockets.on('connection', function (socket) {
       // ignore player message when he/she is not in a room
       return;
     }
+    var room = rooms[player.room.number];
 
-    io.sockets.in('room_' + player.room.number).emit('chat message recieved', { name: player.name, message: data.message });
+    io.sockets.in('room_' + player.room.number).emit('chat message recieved', { name: player.name, color: room.players[player.room.position].color, message: data.message });
     //console.log('chat message is broadcasted: ' + JSON.stringify(data));
   });
 
@@ -270,6 +273,8 @@ io.sockets.on('connection', function (socket) {
         if (candidate_count > 0) {
           nextOwner = candidate[Math.floor(Math.random() * candidate_count)];
           nextOwner.isOwner = true;
+        } else {
+          room.state = 'wait';
         }
       }
       room.players[player.room.position] = null;
