@@ -162,8 +162,37 @@ io.sockets.on('connection', function (socket) {
       room.state = 'play';
       io.sockets.in('room_' + player.room.number).emit('start game response', { status: 'accept' });
       socket.broadcast.in('idle').emit('room status change', rooms);
+
+      io.sockets.in('room_' + player.room.number).emit('game init', {
+        world: {
+          width: 30,
+          height: 10,
+          solids: [
+            { x: 0, y: 9, type: 'Land' },
+            { x: 1, y: 9, type: 'Land' },
+            { x: 2, y: 9, type: 'Land' },
+            { x: 3, y: 9, type: 'Land' },
+            { x: 4, y: 9, type: 'Land' },
+            { x: 5, y: 9, type: 'Land' },
+            { x: 6, y: 9, type: 'Land' },
+            { x: 7, y: 9, type: 'Land' },
+            { x: 8, y: 9, type: 'Land' },
+            { x: 9, y: 9, type: 'Land' },
+            { x: 10, y: 9, type: 'Land' },
+            { x: 11, y: 9, type: 'Land' },
+            { x: 12, y: 9, type: 'Land' },
+            { x: 13, y: 9, type: 'Land' },
+            { x: 14, y: 9, type: 'Land' },
+            { x: 15, y: 9, type: 'Land' },
+            { x: 16, y: 9, type: 'Land' },
+            { x: 17, y: 9, type: 'Land' },
+            { x: 18, y: 9, type: 'Land' },
+            { x: 19, y: 9, type: 'Land' }
+          ]
+        }
+      });
     } else {
-      socket.emit('start game response', {status: 'reject'});
+      socket.emit('start game response', { status: 'reject' });
     }
   });
 
