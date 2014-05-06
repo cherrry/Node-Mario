@@ -300,4 +300,16 @@ io.sockets.on('connection', function (socket) {
     }
   });
 
+  socket.on('player data update', function (data) {
+    if (player.room.number == -1) {
+      return;
+    }
+    var room = rooms[player.room.number];
+    if (room.state != 'play') {
+      return;
+    }
+
+    console.log(data);
+  });
+
 });
