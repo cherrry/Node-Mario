@@ -1,4 +1,3 @@
-
 // initialize the server
 var port = process.env.PORT || 21474,
     server = require('http').createServer();
@@ -6,6 +5,9 @@ server.listen(port);
 var io = require('socket.io').listen(server, { log: false });
 io.configure('origins', 'http://localhost:*', 'http://cherrry.github.io:*', 'https://cherrry.github.io:*');
 
+// read world data
+var WorldData = require('./world');
+console.log(WorldData);
 
 // useful functions
 var random_string = (function() {
@@ -139,63 +141,6 @@ io.sockets.on('connection', function (socket) {
     //console.log(room);
   });
 
-  // start game
-  socket.on('start game request', function (data) {
-    if (player.room.number == -1) {
-      return;
-    }
-    var room = rooms[player.room.number];
-    var readyCount = 0, totalPlayer = 0;
-    if (!room.players[player.room.position].isOwner) {
-      return;
-    }
-
-    for (var i = 0; i < 4; i++) {
-      if (rooms[player.room.number].players[i]){
-        totalPlayer++;
-        if(rooms[player.room.number].players[i].ready)
-          readyCount++;
-      }
-    }
-
-    if (readyCount == totalPlayer && totalPlayer > 0) {
-      room.state = 'play';
-      io.sockets.in('room_' + player.room.number).emit('start game response', { status: 'accept' });
-      socket.broadcast.in('idle').emit('room status change', rooms);
-
-      io.sockets.in('room_' + player.room.number).emit('game init', {
-        world: {
-          width: 30,
-          height: 10,
-          solids: [
-            { x: 0, y: 9, type: 'Land' },
-            { x: 1, y: 9, type: 'Land' },
-            { x: 2, y: 9, type: 'Land' },
-            { x: 3, y: 9, type: 'Land' },
-            { x: 4, y: 9, type: 'Land' },
-            { x: 5, y: 9, type: 'Land' },
-            { x: 6, y: 9, type: 'Land' },
-            { x: 7, y: 9, type: 'Land' },
-            { x: 8, y: 9, type: 'Land' },
-            { x: 9, y: 9, type: 'Land' },
-            { x: 10, y: 9, type: 'Land' },
-            { x: 11, y: 9, type: 'Land' },
-            { x: 12, y: 9, type: 'Land' },
-            { x: 13, y: 9, type: 'Land' },
-            { x: 14, y: 9, type: 'Land' },
-            { x: 15, y: 9, type: 'Land' },
-            { x: 16, y: 9, type: 'Land' },
-            { x: 17, y: 9, type: 'Land' },
-            { x: 18, y: 9, type: 'Land' },
-            { x: 19, y: 9, type: 'Land' }
-          ]
-        }
-      });
-    } else {
-      socket.emit('start game response', { status: 'reject' });
-    }
-  });
-
   // leave room
   socket.on('leave room request', function (data) {
     if (player.room.number == -1) {
@@ -324,4 +269,35 @@ io.sockets.on('connection', function (socket) {
       socket.leave(room);
     }
   });
+
+  // start game
+  socket.on('start game request', function (data) {
+    if (player.room.number == -1) {
+      return;
+    }
+    var room = rooms[player.room.number];
+    var readyCount = 0, totalPlayer = 0;
+    if (!room.players[player.room.position].isOwner) {
+      return;
+    }
+
+    for (var i = 0; i < 4; i++) {
+      if (rooms[player.room.number].players[i]){
+        totalPlayer++;
+        if(rooms[player.room.number].players[i].ready)
+          readyCount++;
+      }
+    }
+
+    if (readyCount == totalPlayer && totalPlayer > 0) {
+      room.state = 'play';
+      io.sockets.in('room_' + player.room.number).emit('start game response', { status: 'accept' });
+      socket.broadcast.in('idle').emit('room status change', rooms);
+
+      io.sockets.in('room_' + player.room.number).emit('game init', { world: WorldData.W1[0], players: room.players });
+    } else {
+      socket.emit('start game response', { status: 'reject' });
+    }
+  });
+
 });
