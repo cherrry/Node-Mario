@@ -2,7 +2,7 @@
 var port = process.env.PORT || 21474,
     server = require('http').createServer();
 server.listen(port);
-var io = require('socket.io').listen(server, { log: true });
+var io = require('socket.io').listen(server, { log: false });
 io.configure('origins', 'http://localhost:*', 'http://cherrry.github.io:*', 'https://cherrry.github.io:*');
 
 // read world data
