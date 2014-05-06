@@ -2,7 +2,7 @@
 var port = process.env.PORT || 21474,
     server = require('http').createServer();
 server.listen(port);
-var io = require('socket.io').listen(server, { log: false });
+var io = require('socket.io').listen(server, { log: true });
 io.configure('origins', 'http://localhost:*', 'http://cherrry.github.io:*', 'https://cherrry.github.io:*');
 
 // read world data
@@ -309,7 +309,7 @@ io.sockets.on('connection', function (socket) {
       return;
     }
 
-    console.log(data);
+    socket.broadcast.in('room_' + player.room.number).emit('player data update', data);
   });
 
 });
