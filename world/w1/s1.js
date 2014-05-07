@@ -1,28 +1,28 @@
 module.exports = (function () {
   var Stage = {};
 
-  Stage.width = 30;
-  Stage.height = 10;
+  Stage.width = 50;
+  Stage.height = 15;
 
   // define solids
   Stage.solids = Array();
 
-  for (var i = 0; i < 30; i++) {
-    Stage.solids.push({ x: i, y: 9, type: 'Land', attr: {} });
+  for (var i = 0; i < Stage.width; i++) {
+    Stage.solids.push({ x: i, y: 14, type: 'Land', attr: {} });
   }
 
-  Stage.solids.push({ x: 6, y: 8, type: 'Tube', attr: { frame: 1 } });
-  Stage.solids.push({ x: 6, y: 7, type: 'Tube', attr: { frame: 0 } });
+  Stage.solids.push({ x: 6, y: 13, type: 'Tube', attr: { frame: 1 } });
+  Stage.solids.push({ x: 6, y: 12, type: 'Tube', attr: { frame: 0 } });
 
-  Stage.solids.push({ x: 14, y: 8, type: 'Tube', attr: { frame: 1 } });
-  Stage.solids.push({ x: 14, y: 7, type: 'Tube', attr: { frame: 1 } });
-  Stage.solids.push({ x: 14, y: 6, type: 'Tube', attr: { frame: 0 } });
+  Stage.solids.push({ x: 14, y: 13, type: 'Tube', attr: { frame: 1 } });
+  Stage.solids.push({ x: 14, y: 12, type: 'Tube', attr: { frame: 1 } });
+  Stage.solids.push({ x: 14, y: 11, type: 'Tube', attr: { frame: 0 } });
 
   // define collectibles
   Stage.collectibles = Array();
 
-  Stage.collectibles.push({ x: 9, y: 8, type: 'Mushroom', attr: { id: 'mushroom_0', color: 'brown' } });
-  Stage.collectibles.push({ x: 28, y: 1, type: 'Flagpole', attr: { id: 'flagpole' } });
+  Stage.collectibles.push({ x: 9, y: 13, type: 'Mushroom', attr: { id: 'mushroom_0', color: 'brown' } });
+  Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height - 9, type: 'Flagpole', attr: { id: 'flagpole' } });
 
   return Stage;
 })();
