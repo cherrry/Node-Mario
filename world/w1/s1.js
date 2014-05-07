@@ -25,7 +25,7 @@ module.exports = (function () {
   // define collectibles
   Stage.collectibles = Array();
 
-  Stage.collectibles.push({ x: 9, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_0', color: 'brown' } });
+  Stage.collectibles.push({ x: 9, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_0', color: 'brown', state: 'alive' } });
   Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height -9, type: 'Flagpole', collidable: true, attr: { id: 'flagpole' } });
   Stage.collectibles.push({ x: 20, y: 13, type: 'PowerUp', collidable: true, attr: { id: 'powerup_0', color: 0 } });
 
