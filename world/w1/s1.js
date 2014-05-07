@@ -18,16 +18,20 @@ module.exports = (function () {
   Stage.solids.push({ x: 14, y: 12, type: 'Tube', attr: { frame: 1 } });
   Stage.solids.push({ x: 14, y: 11, type: 'Tube', attr: { frame: 0 } });
 
-  Stage.solids.push({x: 5, y: 5, type: 'Brick', attr: { isEmpty: 0}});
-  Stage.solids.push({x: 4, y: 4, type: 'Brick', attr: { isEmpty: 1}});
+  for (var i = 7; i < 12; i++) {
+    Stage.solids.push({ x: i, y: Stage.height - 7, type: 'Brick', attr: { isEmpty: 1 } });
+  }
 
   // define collectibles
   Stage.collectibles = Array();
 
   Stage.collectibles.push({ x: 9, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_0', color: 'brown' } });
   Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height -9, type: 'Flagpole', collidable: true, attr: { id: 'flagpole' } });
-  Stage.collectibles.push({ x: 20, y: 10, type: 'Coin', collidable: false, attr: { id: 'coin_0' } });
   Stage.collectibles.push({ x: 20, y: 13, type: 'PowerUp', collidable: true, attr: { id: 'powerup_0', color: 0 } });
+
+  for (var i = 7; i < 12; i++) {
+    Stage.collectibles.push({ x: i, y: Stage.height - 8, type: 'Coin', collidable: false, attr: { id: 'coin_0' } });
+  }
 
   return Stage;
 })();
