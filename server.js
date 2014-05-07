@@ -312,4 +312,18 @@ io.sockets.on('connection', function (socket) {
     socket.broadcast.in('room_' + player.room.number).emit('player data update', data);
   });
 
+  socket.on('collectible data update', function (data) {
+    if (player.room.number == -1) {
+      return;
+    }
+    var room = rooms[player.room.number];
+    if (room.state != 'play') {
+      return;
+    }
+
+    console.log(data);
+
+    socket.broadcast.in('room_' + player.room.number).emit('collectible data update', data);
+  });
+
 });
