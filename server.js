@@ -42,10 +42,12 @@ var next_color = function(room, old_color) {
 
 // player data
 var players = Object(),
-    rooms = Array(6);
+    rooms = Array(6),
+    gamedata = Array(6);
 
 for (var i = 0; i < 6; i++) {
   rooms[i] = { number: i, players: [ null, null, null, null ], state: 'wait', settings: { world: 1, life: 3 } };
+  gamedata[i] = { collected: {} };
 }
 
 
@@ -294,6 +296,7 @@ io.sockets.on('connection', function (socket) {
       io.sockets.in('room_' + player.room.number).emit('start game response', { status: 'accept' });
       socket.broadcast.in('idle').emit('room status change', rooms);
 
+      gamedata[player.room.number] = { collected: {} };
       io.sockets.in('room_' + player.room.number).emit('game init', { world: WorldData.W1[0], players: room.players });
     } else {
       socket.emit('start game response', { status: 'reject' });
@@ -321,9 +324,26 @@ io.sockets.on('connection', function (socket) {
       return;
     }
 
-    console.log(data);
+    // console.log(data);
 
     socket.broadcast.in('room_' + player.room.number).emit('collectible data update', data);
+  });
+
+  socket.on('player collect object', function (data) {
+    if (player.room.number == -1) {
+      return;
+    }
+    var room = rooms[player.room.number];
+    var roomdata = gamedata[player.room.number];
+    if (room.state != 'play') {
+      return;
+    }
+
+    if (!(data.id in roomdata.collected)) {
+      roomdata.collected[data.id] = player.id;
+      io.sockets.in('room_' + player.room.number).emit('player collect object', { player: player.id, collectible: data.id });
+    }
+
   });
 
 });
