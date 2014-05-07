@@ -18,6 +18,9 @@ module.exports = (function () {
   Stage.solids.push({ x: 14, y: 7, type: 'Tube', attr: { frame: 1 } });
   Stage.solids.push({ x: 14, y: 6, type: 'Tube', attr: { frame: 0 } });
 
+  Stage.solids.push({x: 5, y: 5, type: 'Brick', attr: { isEmpty: 0}});
+  Stage.solids.push({x: 4, y: 4, type: 'Brick', attr: { isEmpty: 1}});
+
   // define collectibles
   Stage.collectibles = Array();
 
