@@ -22,6 +22,7 @@ module.exports = (function () {
   Stage.collectibles = Array();
 
   Stage.collectibles.push({ x: 9, y: 8, type: 'Mushroom', attr: { id: 'mushroom_0', color: 'brown' } });
+  Stage.collectibles.push({ x: 28, y: 1, type: 'Flagpole', attr: { id: 'flagpole' } });
 
   return Stage;
 })();
