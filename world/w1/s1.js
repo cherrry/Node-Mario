@@ -30,7 +30,7 @@ module.exports = (function () {
   Stage.collectibles.push({ x: 20, y: 13, type: 'PowerUp', collidable: true, attr: { id: 'powerup_0', color: 0 } });
 
   for (var i = 7; i < 12; i++) {
-    Stage.collectibles.push({ x: i, y: Stage.height - 8, type: 'Coin', collidable: false, attr: { id: 'coin_0' } });
+    Stage.collectibles.push({ x: i, y: Stage.height - 8, type: 'Coin', collidable: false, attr: { id: 'coin_' + (i - 7) } });
   }
 
   return Stage;
