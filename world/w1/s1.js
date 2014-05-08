@@ -22,7 +22,7 @@ module.exports = (function () {
   Stage.solids.push({ x: 22, y: 12, type: 'Tube', attr: { frame: 0 } });
 
   for (var i = 7; i < 12; i++) {
-    Stage.solids.push({ x: i, y: Stage.height - 7, type: 'Brick', attr: { isEmpty: 1 } });
+    Stage.solids.push({ x: i, y: Stage.height - 7, type: 'Brick', attr: { itemNum: (i-7) } });
   }
 
   // define collectibles
