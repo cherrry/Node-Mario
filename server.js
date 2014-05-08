@@ -297,6 +297,16 @@ io.sockets.on('connection', function (socket) {
       socket.broadcast.in('idle').emit('room status change', rooms);
 
       gamedata[player.room.number] = { collected: {} };
+      // initialize player state, e.g. coins and hp
+      for(var i = 0; i < 4; i++){
+        var p = rooms[player.room.number].players[i];
+        if(p){
+          console.log(p);
+          p.coins = 0;
+          // change the default lives here
+          p.lives = 3;
+        }
+      }
       io.sockets.in('room_' + player.room.number).emit('game init', { world: WorldData.W1[0], players: room.players });
     } else {
       socket.emit('start game response', { status: 'reject' });
