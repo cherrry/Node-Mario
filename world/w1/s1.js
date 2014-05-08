@@ -21,12 +21,13 @@ module.exports = (function () {
   Stage.solids.push({ x: 22, y: 13, type: 'Tube', attr: { frame: 1 } });
   Stage.solids.push({ x: 22, y: 12, type: 'Tube', attr: { frame: 0 } });
 
-  for (var i = 7; i < 12; i++) {
-    Stage.solids.push({ x: i, y: Stage.height - 7, type: 'Brick', attr: { isEmpty: 1 } });
-  }
 
   // define collectibles
   Stage.collectibles = Array();
+
+  for (var i = 7; i < 12; i++) {
+    Stage.collectibles.push({ x: i, y: Stage.height - 7, type: 'Brick', collidable: true, attr: { id: 'brick_' + i, itemNum: (i-7) } });
+  }
 
   Stage.collectibles.push({ x: 9, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_0', color: 'brown', state: 'alive' } });
   Stage.collectibles.push({ x: 16, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_1', color: 'brown', state: 'alive' } });
