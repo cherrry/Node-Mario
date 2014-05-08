@@ -27,7 +27,7 @@ module.exports = (function () {
 
   Stage.collectibles.push({ x: 9, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_0', color: 'brown', state: 'alive' } });
   Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height -9, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
-  Stage.collectibles.push({ x: 20, y: 13, type: 'PowerUp', collidable: false, attr: { id: 'powerup_0', color: 0 } });
+  Stage.collectibles.push({ x: 20, y: 13, type: 'PowerUp', collidable: false, attr: { id: 'powerup_0', type: 'grow' } });
 
   for (var i = 7; i < 12; i++) {
     Stage.collectibles.push({ x: i, y: Stage.height - 8, type: 'Coin', collidable: false, attr: { id: 'coin_' + (i - 7) } });
