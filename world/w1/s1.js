@@ -26,10 +26,11 @@ module.exports = (function () {
   Stage.collectibles = Array();
 
   for (var i = 7; i < 12; i++) {
-    Stage.collectibles.push({ x: i, y: Stage.height - 7, type: 'Brick', collidable: true, attr: { id: 'brick_' + i, item:['power-up'] } });
+    Stage.collectibles.push({ x: i, y: Stage.height - 7, type: 'Brick', collidable: true, attr: { id: 'brick_' + i, item:['Power-Up'], visible:true } });
   }
-
-  Stage.collectibles.push({ x: 16, y: Stage.height - 7, type: 'Brick', collidable: true, attr: { id: 'brick_' + i, item: [] } });
+  for (var i = 16; i < 20; i++) {
+    Stage.collectibles.push({ x: i, y: Stage.height - 7, type: 'Brick', collidable: true, attr: { id: 'brick_' + i, item: [], visible:false } });
+  }
 
   Stage.collectibles.push({ x: 9, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_0', color: 'brown', state: 'alive' } });
   Stage.collectibles.push({ x: 16, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_1', color: 'brown', state: 'alive' } });
