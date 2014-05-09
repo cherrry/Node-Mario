@@ -350,8 +350,12 @@ io.sockets.on('connection', function (socket) {
     }
 
     if (!(data.id in roomdata.collected)) {
-      roomdata.collected[data.id] = player.id;
-      io.sockets.in('room_' + player.room.number).emit('player collect object', { player: player.id, collectible: data.id });
+      roomdata.collected[data.id] = Array();
+      roomdata.collected[data.id].push(player.id);
+      io.sockets.in('room_' + player.room.number).emit('player collect object', { player: player.id, collectible: data.id, collect_index: 0 });
+    } else {
+      roomdata.collected[data.id].push(player.id);
+      io.sockets.in('room_' + player.room.number).emit('player collect object', { player: player.id, collectible: data.id, collect_index: roomdata.collected[data.id].length - 1 });
     }
 
   });
