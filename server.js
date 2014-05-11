@@ -354,7 +354,7 @@ io.sockets.on('connection', function (socket) {
       roomdata.collected[data.id] = Array();
     }
     roomdata.collected[data.id].push(player.id);
-    io.sockets.in('room_' + player.room.number).emit('player collect object', { player: player.id, collectible: data.id, collect_index: 0 });
+    io.sockets.in('room_' + player.room.number).emit('player collect object', { player: player.id, collectible: data.id, collect_index: roomdata.collected[data.id].length - 1 });
 
   });
 
