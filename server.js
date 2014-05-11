@@ -383,6 +383,8 @@ io.sockets.on('connection', function (socket) {
       for (var i = 0; i < 4; i++) {
         if (room.players[i] == null) {
           room.state = 'wait';
+        } else {
+          room.players[i].ready = null;
         }
       }
 
