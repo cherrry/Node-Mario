@@ -8,7 +8,7 @@ module.exports = (function () {
   Stage.solids = Array();
 
   for (var i = 0; i < Stage.width; i++) {
-    Stage.solids.push({ x: i, y: 14, type: 'Land', attr: {} });
+    Stage.solids.push({ x: i, y: Stage.height - 1, type: 'Land', attr: {} });
   }
 
   Stage.solids.push({ x: 6, y: 13, type: 'Tube', attr: { frame: 1 } });

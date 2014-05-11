@@ -47,7 +47,7 @@ var players = Object(),
 
 for (var i = 0; i < 6; i++) {
   rooms[i] = { number: i, players: [ null, null, null, null ], state: 'wait', settings: { world: 1, life: 3 } };
-  gamedata[i] = { collected: {} };
+  gamedata[i] = { world: 'W1', stage: 0, collected: {} };
 }
 
 
@@ -295,8 +295,7 @@ io.sockets.on('connection', function (socket) {
       room.state = 'play';
       io.sockets.in('room_' + player.room.number).emit('start game response', { status: 'accept' });
       socket.broadcast.in('idle').emit('room status change', rooms);
-
-      gamedata[player.room.number] = { collected: {} };
+      gamedata[player.room.number] = { world: 'W1', stage: 0, collected: {} };
       // initialize player state, e.g. coins and hp
       for(var i = 0; i < 4; i++){
         var p = rooms[player.room.number].players[i];
@@ -307,7 +306,9 @@ io.sockets.on('connection', function (socket) {
           p.lives = 3;
         }
       }
-      io.sockets.in('room_' + player.room.number).emit('game init', { world: WorldData.W1[0], players: room.players });
+      var roomdata = gamedata[player.room.number];
+
+      io.sockets.in('room_' + player.room.number).emit('game init', { world: WorldData[roomdata.world][0], players: room.players });
     } else {
       socket.emit('start game response', { status: 'reject' });
     }
@@ -356,6 +357,37 @@ io.sockets.on('connection', function (socket) {
     } else {
       roomdata.collected[data.id].push(player.id);
       io.sockets.in('room_' + player.room.number).emit('player collect object', { player: player.id, collectible: data.id, collect_index: roomdata.collected[data.id].length - 1 });
+    }
+
+  });
+
+  socket.on('end game', function (data) {
+    if (player.room.number == -1) {
+      return;
+    }
+    var room = rooms[player.room.number];
+    if (room.state != 'play') {
+      return;
+    }
+    var roomdata = gamedata[player.room.number];
+    console.log(roomdata);
+    console.log(WorldData[roomdata.world].length);
+
+    roomdata.stage = roomdata.stage + 1;
+    if (roomdata.stage < WorldData[roomdata.world].length) {
+      roomdata.collected = {};
+      io.sockets.in('room_' + player.room.number).emit('game init', { world: WorldData[roomdata.world][roomdata.stage], players: room.players });
+    } else {
+      room.state = 'full';
+      for (var i = 0; i < 4; i++) {
+        if (room.players[i] == null) {
+          room.state = 'wait';
+        }
+      }
+
+      io.sockets.in('room_' + player.room.number).emit('go back to game room');
+      io.sockets.in('room_' + player.room.number).emit('room status change', room);
+      socket.broadcast.in('idle').emit('room status change', rooms);
     }
 
   });
