@@ -370,13 +370,14 @@ io.sockets.on('connection', function (socket) {
       return;
     }
     var roomdata = gamedata[player.room.number];
-    console.log(roomdata);
-    console.log(WorldData[roomdata.world].length);
-
     roomdata.stage = roomdata.stage + 1;
+
+    console.log('change stage', roomdata, WorldData[roomdata.world].length);
+
     if (roomdata.stage < WorldData[roomdata.world].length) {
       roomdata.collected = {};
       io.sockets.in('room_' + player.room.number).emit('game init', { world: WorldData[roomdata.world][roomdata.stage], players: room.players });
+
     } else {
       room.state = 'full';
       for (var i = 0; i < 4; i++) {
