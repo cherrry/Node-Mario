@@ -20,7 +20,7 @@ module.exports = (function () {
 
   Stage.collectibles = Array();
 
-  Stage.collectibles.push({ x: 20, y: 12, type: 'Box', collidable: true, attr: { id: 'box_0' } });
+  Stage.collectibles.push({ x: 20, y: 12, type: 'Boat', collidable: true, attr: { id: 'box_0' } });
 
   Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height -9, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
 
