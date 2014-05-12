@@ -1,8 +1,9 @@
 module.exports = (function () {
   var World = Array();
 
-  World[0] = require('./w1/s1');
-  World[1] = require('./w1/s2');
+  for (var i=0; i<4; i++){
+  	World[i] = require('./w1/s' + (i+1) );
+  }
 
   return World;
 })();
