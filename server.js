@@ -370,6 +370,19 @@ io.sockets.on('connection', function (socket) {
     io.sockets.in('room_' + player.room.number).emit('player die', { player: player.id });
   });
 
+  socket.on('player shrink', function (data) {
+    if (player.room.number == -1) {
+      return;
+    }
+    var room = rooms[player.room.number];
+    var roomdata = gamedata[player.room.number];
+    if (room.state != 'play') {
+      return;
+    }
+
+    io.sockets.in('room_' + player.room.number).emit('player shrink', { player: player.id });
+  });
+
   socket.on('stage ready', function (data) {
     if (player.room.number == -1) {
       return;
