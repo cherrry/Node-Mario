@@ -389,6 +389,7 @@ io.sockets.on('connection', function (socket) {
     }
     var room = rooms[player.room.number];
     if (room.state != 'play') {
+      io.sockets.in('room_' + player.room.number).emit('all game over');
       return;
     }
     var roomdata = gamedata[player.room.number];
@@ -398,6 +399,7 @@ io.sockets.on('connection', function (socket) {
 
     // Count number of non-null players
     var player_count = (function () {
+      io.sockets.in('room_' + player.room.number).emit('all game over');
       var ret = 0;
       for (var i = 0; i < room.players.length; i += 1){
         if (room.players[i] != null) {
@@ -469,7 +471,7 @@ io.sockets.on('connection', function (socket) {
         if (room.players[i] == null) {
           room.state = 'wait';
         } else {
-          room.players[i].ready = null;
+          room.players[i].ready = false;
         }
       }
 
