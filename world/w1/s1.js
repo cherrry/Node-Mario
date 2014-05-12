@@ -35,7 +35,7 @@ module.exports = (function () {
   Stage.collectibles.push({ x: 9, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_0', color: 'brown', state: 'alive' } });
   Stage.collectibles.push({ x: 16, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_1', color: 'brown', state: 'alive' } });
   Stage.collectibles.push({ x: 18, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_2', color: 'brown', state: 'alive' } });
-
+  Stage.collectibles.push({ x: 28, y: 13, type: 'Box', collidable: true, attr: { id: 'box_0' } });
 
   Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height -9, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
   Stage.collectibles.push({ x: 23, y: 13, type: 'PowerUp', collidable: false, attr: { id: 'powerup_0', type: 'grow' } });
