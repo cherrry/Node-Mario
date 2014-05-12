@@ -411,7 +411,17 @@ io.sockets.on('connection', function (socket) {
 
     if (roomdata.player_game_over_count >= player_count) {
       console.log('All players game over!');
+      room.state = 'full';
+      for (var i = 0; i < 4; i++) {
+        if (room.players[i] == null) {
+          room.state = 'wait';
+        } else {
+          room.players[i].ready = false;
+        }
+      }
       io.sockets.in('room_' + player.room.number).emit('go back to game room');
+      io.sockets.in('room_' + player.room.number).emit('room status change', room);
+      socket.broadcast.in('idle').emit('room status change', rooms);
     }
   });
 
