@@ -355,7 +355,19 @@ io.sockets.on('connection', function (socket) {
     }
     roomdata.collected[data.id].push(player.id);
     io.sockets.in('room_' + player.room.number).emit('player collect object', { player: player.id, collectible: data.id, collect_index: roomdata.collected[data.id].length - 1 });
+  });
 
+  socket.on('player die', function (data) {
+    if (player.room.number == -1) {
+      return;
+    }
+    var room = rooms[player.room.number];
+    var roomdata = gamedata[player.room.number];
+    if (room.state != 'play') {
+      return;
+    }
+
+    io.sockets.in('room_' + player.room.number).emit('player die', { player: player.id });
   });
 
   socket.on('stage ready', function (data) {
