@@ -9,9 +9,12 @@ module.exports = (function () {
   // define solids
   Stage.solids = Array();
 
+  /*
   for (var i = 0; i < Stage.width; i++) {
     Stage.solids.push({ x: i, y: Stage.height - 1, type: 'Land', attr: {} });
   }
+  */
+  Stage.solids.push({ x: 0, y: Stage.height - 1, type: 'Land', attr: { frame: 1, repeat: { x: Stage.width, y: 1 } } });
 
   Stage.solids.push({ x: 6, y: 13, type: 'Tube', attr: { frame: 1 } });
   Stage.solids.push({ x: 6, y: 12, type: 'Tube', attr: { frame: 0 } });
