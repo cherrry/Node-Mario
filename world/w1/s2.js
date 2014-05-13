@@ -25,6 +25,7 @@ module.exports = (function () {
   Stage.collectibles.push({ x: 18, y: 12, type: 'LifeDown', collidable: false, attr: { id: 'lifedown_0', type: 'lifedown' } });
 
   Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height -9, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
+  Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height -9, type: 'Flag', collidable: false, attr: { id: 'flag' } });
 
   for (var i = 0; i < Stage.width; i++) {
     if (i < Stage.width -10){
