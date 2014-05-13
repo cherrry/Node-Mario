@@ -4,6 +4,8 @@ module.exports = (function () {
   Stage.width = 50;
   Stage.height = 15;
 
+  Stage.theme = 'theme';
+
   // define solids
   Stage.solids = Array();
 
