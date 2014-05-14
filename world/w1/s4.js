@@ -40,7 +40,7 @@ module.exports = (function () {
 
   for (var i=40; i<43; i++){
     for (var j=5; j<11; j+=3){
-      Stage.collectibles.push({ x: i, y: Stage.height - j, type: 'Brick', collidable: true, attr: { id: 'brick_' + k, item: ['Coin'], visible:false } });
+      Stage.collectibles.push({ x: i, y: Stage.height - j, type: 'Brick', collidable: true, attr: { id: 'brick_' + k, item: ['One-Up'], visible:false } });
       k++;    
     }
   }
