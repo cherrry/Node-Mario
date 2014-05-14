@@ -9,17 +9,24 @@ module.exports = (function () {
   // define solids
   Stage.solids = Array();
 
-  for (var i = 0; i < 25; i++) {
+  // Buttom Land
+  for (var i = 0; i < 32; i++) {
+    if (i<9){
+      Stage.solids.push({ x: i, y: Stage.height - 3, type: 'Land', attr: {} });
+      Stage.solids.push({ x: i, y: Stage.height - 4, type: 'Land', attr: {} });
+    }
     Stage.solids.push({ x: i, y: Stage.height - 1, type: 'Land', attr: {} });
     Stage.solids.push({ x: i, y: Stage.height - 2, type: 'Land', attr: {} });
   }
-
-  for (var i = 47; i < 50; i++) {
+  for (var i = 40; i < 50; i++) {
     Stage.solids.push({ x: i, y: Stage.height - 1, type: 'Land', attr: {} });
     Stage.solids.push({ x: i, y: Stage.height - 2, type: 'Land', attr: {} });
   }
+  Stage.solids.push({ x: 30, y: Stage.height - 3, type: 'Block', attr: {} });
+  Stage.solids.push({ x: 31, y: Stage.height - 3, type: 'Block', attr: {} });
 
-  for (var i = 0; i < 33; i++) {
+  // Top Land
+  for (var i = 0; i < 23; i++) {
     if (i != 14){
       Stage.solids.push({ x: i, y: Stage.height - 5, type: 'Land', attr: {} });
     }
@@ -36,6 +43,10 @@ module.exports = (function () {
 
   Stage.collectibles = Array();
 
+  for (var i = 23; i < 30; i++){
+     Stage.collectibles.push({ x: i, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_support' + i, item: [], visible:false } });
+  }
+
   for (var i = 22; i < 26; i++) {
     Stage.collectibles.push({ x: i, y: Stage.height - 8, type: 'Brick', collidable: true, attr: { id: 'brick_' + i, item:['Power-Up', 'Coin', 'Coin'], visible:true } });
   }
@@ -49,16 +60,17 @@ module.exports = (function () {
 
   Stage.collectibles.push({ x: 14, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_0', item: [], visible:false } });
 
-  Stage.collectibles.push({ x: 20, y: 12, type: 'Boat', collidable: true, attr: { id: 'box_0' } });
-
   Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height - 10, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
   Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height - 10, type: 'Flag', collidable: false, attr: { id: 'flag', music: 'end-level' } });
 
-  for (var i = 25; i < 47; i++) {
+  for (var i = 32; i < 40; i++) {
     Stage.collectibles.push({ x: i, y: Stage.height - 1, type: 'Water', collidable: true, attr: {} });
   }
 
-  for (var i = 0; i < 5; i++) {
+  Stage.collectibles.push({ x: 30, y: Stage.height - 4, type: 'Water', collidable: true, attr: {} });
+  Stage.collectibles.push({ x: 31, y: Stage.height - 4, type: 'Water', collidable: true, attr: {} });
+
+  for (var i = 10; i < 15; i++) {
     Stage.collectibles.push({ x: i, y: Stage.height - 3, type: 'Coin', collidable: false, attr: { id: 'coin_' + (i) } });
   }
 
