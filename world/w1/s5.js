@@ -78,9 +78,14 @@ module.exports = (function () {
   Stage.collectibles.push({ x: 33, y: Stage.height - 5, type: 'Water', collidable: true, attr: {type:'downward'} });
 
   // climb up invisible brick
-  Stage.collectibles.push({ x: 44, y: 9, type: 'Brick', collidable: true, attr: { id: 'brick_44', item: [], visible:false } });
-  Stage.collectibles.push({ x: 43, y: 6, type: 'Brick', collidable: true, attr: { id: 'brick_43', item: [], visible:false } });
-  Stage.collectibles.push({ x: 42, y: 3, type: 'Brick', collidable: true, attr: { id: 'brick_42', item: [], visible:false } });
+  Stage.collectibles.push({ x: 44, y: 9, type: 'Brick', collidable: true, attr: { id: 'brick_44', item: ['Coin'], visible:false } });
+  Stage.collectibles.push({ x: 43, y: 6, type: 'Brick', collidable: true, attr: { id: 'brick_43', item: ['Coin'], visible:false } });
+  Stage.collectibles.push({ x: 42, y: 3, type: 'Brick', collidable: true, attr: { id: 'brick_42', item: ['Coin'], visible:false } });
+
+  // Upper Coins
+  for (var i=9; i<42; i++){
+    Stage.collectibles.push({ x: i, y: 1, type: 'Coin', collidable: false, attr: { id: 'coin_up_' + i } });
+  }
 
   // Flag
   Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -13, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
