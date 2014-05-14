@@ -6,6 +6,7 @@ module.exports = (function () {
 
   Stage.theme = 'theme3';
 
+  // Sea
   // define solids
   Stage.solids = Array();
 
