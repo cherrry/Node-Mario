@@ -51,7 +51,7 @@ module.exports = (function () {
   Stage.collectibles.push({ x: 44, y: Stage.height - 1, type: 'Water', collidable: true, attr: {} });
 
   Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height - 10, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
-  Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height - 10, type: 'Flag', collidable: false, attr: { id: 'flag' } });
+  Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height - 10, type: 'Flag', collidable: false, attr: { id: 'flag', music: 'end-game' } });
 
   return Stage;
 })();

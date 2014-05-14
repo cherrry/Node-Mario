@@ -43,7 +43,7 @@ module.exports = (function () {
   Stage.collectibles.push({ x: 28, y: 13, type: 'Box', collidable: true, attr: { id: 'box_0' } });
 
   Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -9, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
-  Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -9, type: 'Flag', collidable: false, attr: { id: 'flag' } });
+  Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -9, type: 'Flag', collidable: false, attr: { id: 'flag', music: 'end-level' } });
   Stage.collectibles.push({ x: 23, y: 13, type: 'PowerUp', collidable: false, attr: { id: 'powerup_0', type: 'grow' } });
 
   for (var i = 7; i < 12; i++) {
