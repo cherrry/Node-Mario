@@ -512,6 +512,18 @@ io.sockets.on('connection', function (socket) {
     if (room.state != 'play') {
       return;
     }
+    var owner_check = (function () {
+      for (var i in room.players) {
+        if (room.players[i].id == data.player) {
+          return true;
+        }
+      }
+      return false;
+    }) ();
+    if (!owner_check) {
+      return;
+    }
+
     var roomdata = gamedata[player.room.number];
     roomdata.stage = roomdata.stage + 1;
 
