@@ -92,7 +92,7 @@ module.exports = (function () {
 
   // Flag
   Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -13, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
-  Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -13, type: 'Flag', collidable: false, attr: { id: 'flag' } });
+  Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -13, type: 'Flag', collidable: false, attr: { id: 'flag', music: 'end-game' } });
 
 
   return Stage;
