@@ -11,29 +11,30 @@ module.exports = (function () {
   Stage.solids = Array();
 
   // Buttom Land
+  Stage.solids.push({ x: 0, y: 11, type: 'Land', attr: { frame: 13, repeat: { x: 8, y: 4 } } });
+  Stage.solids.push({ x: 8, y: 11, type: 'Land', attr: { frame: 38, repeat: { x: 1, y: 2 } } });
+  Stage.solids.push({ x: 8, y: 13, type: 'Land', attr: { frame: 52, repeat: { x: 1, y: 1 } } });
+  Stage.solids.push({ x: 9, y: 13, type: 'Land', attr: { frame: 1, repeat: { x: 22, y: 1 } } });
+  Stage.solids.push({ x: 8, y: 14, type: 'Land', attr: { frame: 13, repeat: { x: 23, y: 1 } } });
+  Stage.solids.push({ x: 31, y: 13, type: 'Land', attr: { frame: 2 } });
+  Stage.solids.push({ x: 31, y: 14, type: 'Land', attr: { frame: 14 } });
 
-  Stage.solids.push({ x: 0, y: Stage.height - 4, type: 'Land', attr: { frame: 1, repeat: { x: 10, y: 1 } } });
-  for (var i = 0; i < 32; i++) {
-    if (i<9){
-      Stage.solids.push({ x: i, y: Stage.height - 3, type: 'Land', attr: {} });
-      Stage.solids.push({ x: i, y: Stage.height - 4, type: 'Land', attr: {} });
-    }
-    Stage.solids.push({ x: i, y: Stage.height - 1, type: 'Land', attr: {} });
-    Stage.solids.push({ x: i, y: Stage.height - 2, type: 'Land', attr: {} });
-  }
-  for (var i = 40; i < 50; i++) {
-    Stage.solids.push({ x: i, y: Stage.height - 1, type: 'Land', attr: {} });
-    Stage.solids.push({ x: i, y: Stage.height - 2, type: 'Land', attr: {} });
-  }
-  Stage.solids.push({ x: 30, y: Stage.height - 3, type: 'Block', attr: {} });
-  Stage.solids.push({ x: 31, y: Stage.height - 3, type: 'Block', attr: {} });
+  Stage.solids.push({ x: 40, y: 13, type: 'Land', attr: { frame: 0 } });
+  Stage.solids.push({ x: 40, y: 14, type: 'Land', attr: { frame: 12 } });
+  Stage.solids.push({ x: 41, y: 13, type: 'Land', attr: { frame: 1, repeat: { x: 9, y: 1 } } });
+  Stage.solids.push({ x: 41, y: 14, type: 'Land', attr: { frame: 13, repeat: { x: 9, y: 1 } } });
+
+  Stage.solids.push({ x: 30, y: Stage.height - 3, type: 'Land', attr: { frame: 23, repeat: { x: 2, y: 1 } } });
 
   // Top Land
-  for (var i = 0; i < 23; i++) {
-    if (i != 14){
-      Stage.solids.push({ x: i, y: Stage.height - 5, type: 'Land', attr: {} });
-    }
-  }
+  Stage.solids.push({ x: 0, y: 10, type: 'Land', attr: { frame: 1, repeat: { x: 8, y: 1 } } });
+  Stage.solids.push({ x: 8, y: 10, type: 'Land', attr: { frame: 42, repeat: { x: 1, y: 1 } } });
+  Stage.solids.push({ x: 9, y: 10, type: 'Land', attr: { frame: 5, repeat: { x: 4, y: 1 } } });
+  Stage.solids.push({ x: 13, y: 10, type: 'Land', attr: { frame: 6, repeat: { x: 1, y: 1 } } });
+
+  Stage.solids.push({ x: 15, y: 10, type: 'Land', attr: { frame: 4 } });
+  Stage.solids.push({ x: 16, y: 10, type: 'Land', attr: { frame: 5, repeat: { x: 6, y: 1 } } });
+  Stage.solids.push({ x: 22, y: 10, type: 'Land', attr: { frame: 6 } });
 
   Stage.solids.push({ x: 15, y: Stage.height - 7, type: 'Tube', attr: { frame: 0 } });
   Stage.solids.push({ x: 15, y: Stage.height - 6, type: 'Tube', attr: { frame: 1 } });
@@ -70,8 +71,8 @@ module.exports = (function () {
     Stage.collectibles.push({ x: i, y: Stage.height - 1, type: 'Water', collidable: true, attr: {} });
   }
 
-  Stage.collectibles.push({ x: 30, y: Stage.height - 4, type: 'Water', collidable: true, attr: {} });
-  Stage.collectibles.push({ x: 31, y: Stage.height - 4, type: 'Water', collidable: true, attr: {} });
+  Stage.collectibles.push({ x: 30, y: Stage.height - 4, type: 'Water', collidable: true, attr: { type: 'upward' } });
+  Stage.collectibles.push({ x: 31, y: Stage.height - 4, type: 'Water', collidable: true, attr: { type: 'upward' } });
 
   for (var i = 10; i < 15; i++) {
     Stage.collectibles.push({ x: i, y: Stage.height - 3, type: 'Coin', collidable: false, attr: { id: 'coin_' + (i) } });
