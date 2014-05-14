@@ -364,15 +364,17 @@ io.sockets.on('connection', function (socket) {
       return;
     }
 
-    if (data.Type == 'Flag') {
-      console.log('Flag collected');
-      roomdata.can_collect = false;
-    }
-
     if (!(data.id in roomdata.collected)) {
       roomdata.collected[data.id] = Array();
     }
     roomdata.collected[data.id].push(player.id);
+
+    //Special handling for flag, other client will show flag falling
+    if (data.Type == 'Flag') {
+      console.log('Flag collected');
+      roomdata.can_collect = false;
+      io.sockets.in('room_' + player.room.number).emit('player collect flag', { player: player.id, collectible: data.id, collect_index: roomdata.collected[data.id].length - 1 });
+    }
 
     /*var players = room.players;
     for (int i = 0; i < 4; i++){
