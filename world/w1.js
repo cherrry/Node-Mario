@@ -2,7 +2,7 @@ module.exports = (function () {
   var World = Array();
 
   var levels = [1, 2];
-  var dlevels = [1];
+  var dlevels = [];
   for (var i=0; i<dlevels.length; i++){
     World[i] = require('./demo/d' + dlevels[i] );   
   } 
