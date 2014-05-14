@@ -58,7 +58,8 @@ module.exports = (function () {
   var k = 0;
   for (var i=0; i<3; i++){
     for (var j=44-i; j<=45; j++){
-      Stage.collectibles.push({ x: j, y: 2+i*4, type: 'Brick', collidable: true, attr: { id: 'brick_', item: ['Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin'], visible:true } });
+      Stage.collectibles.push({ x: j, y: 2+i*4, type: 'Brick', collidable: true, attr: { id: 'brick_' + k, item: ['Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin'], visible:true } });
+      k++;
     }
   }
 
