@@ -295,7 +295,7 @@ io.sockets.on('connection', function (socket) {
       room.state = 'play';
       io.sockets.in('room_' + player.room.number).emit('start game response', { status: 'accept' });
       socket.broadcast.in('idle').emit('room status change', rooms);
-      gamedata[player.room.number] = { world: 'W1', stage: 0, collected: {}, can_collect: false, stage_ready_count: 0, player_game_over_count: 0 };
+      gamedata[player.room.number] = { world: 'W1', stage: 0, collected: {}, can_collect: false, stage_ready_list: [], player_game_over_list: [] };
       // initialize player state, e.g. coins and hp
       for(var i = 0; i < 4; i++){
         var p = rooms[player.room.number].players[i];
@@ -441,12 +441,12 @@ io.sockets.on('connection', function (socket) {
     }
     var roomdata = gamedata[player.room.number];
 
-    roomdata.player_game_over_count += 1;
-    console.log('player game over count = ' + roomdata.player_game_over_count);
+    var id = data.player;
+    roomdata.player_game_over_list[id] = true;
+    console.log(id + ' is game over');
 
     // Count number of non-null players
     var player_count = (function () {
-      io.sockets.in('room_' + player.room.number).emit('all game over');
       var ret = 0;
       for (var i = 0; i < room.players.length; i += 1){
         if (room.players[i] != null) {
@@ -456,7 +456,18 @@ io.sockets.on('connection', function (socket) {
       return ret;
     }) ();
 
-    if (roomdata.player_game_over_count >= player_count) {
+    // Count number of game over players
+    var game_over_count = (function () {
+      var ret = 0;
+      for (var i in roomdata.player_game_over_list) {
+        if (roomdata.player_game_over_list[i] == true) {
+          ret += 1;
+        }
+      }
+      return ret;
+    }) ();
+
+    if (game_over_count >= player_count) {
       console.log('All players game over!');
       room.state = 'full';
       for (var i = 0; i < 4; i++) {
@@ -482,8 +493,9 @@ io.sockets.on('connection', function (socket) {
     }
     var roomdata = gamedata[player.room.number];
 
-    roomdata.stage_ready_count += 1;
-    console.log('stage ready count = ' + roomdata.stage_ready_count);
+    var id = data.player;
+    roomdata.stage_ready_list[id] = true;
+    console.log(id + ' is ready');
 
     // Count number of non-null players
     var player_count = (function () {
@@ -496,7 +508,18 @@ io.sockets.on('connection', function (socket) {
       return ret;
     }) ();
 
-    if (roomdata.stage_ready_count >= player_count) {
+    // Count number of ready players
+    var ready_player_count = (function () {
+      var ret = 0;
+      for (var i in roomdata.stage_ready_list) {
+        if (roomdata.stage_ready_list[i] == true) {
+          ret += 1;
+        }
+      }
+      return ret;
+    }) ();
+
+    if (ready_player_count >= player_count) {
       console.log('All player stage ready');
       roomdata.can_collect = true;
     }
@@ -510,6 +533,18 @@ io.sockets.on('connection', function (socket) {
     if (room.state != 'play') {
       return;
     }
+    var owner_check = (function () {
+      for (var i in room.players) {
+        if (room.players[i].id == data.player) {
+          return true;
+        }
+      }
+      return false;
+    }) ();
+    if (!owner_check) {
+      return;
+    }
+
     var roomdata = gamedata[player.room.number];
     roomdata.stage = roomdata.stage + 1;
 
@@ -518,12 +553,12 @@ io.sockets.on('connection', function (socket) {
     if (roomdata.stage < WorldData[roomdata.world].length) {
       roomdata.collected = {};
       roomdata.can_collect = false;
-      roomdata.stage_ready_count = 0;
-      roomdata.player_game_over_count = 0;
       for (var i = 0; i < 4; i++){
           if(room.players[i])
                room.players[i].lives++;
       }
+      roomdata.stage_ready_list = [];
+      roomdata.player_game_over_list = [];
       io.sockets.in('room_' + player.room.number).emit('game init', { world: WorldData[roomdata.world][roomdata.stage], players: room.players });
 
     } else {

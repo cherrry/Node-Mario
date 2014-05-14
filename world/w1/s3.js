@@ -6,10 +6,13 @@ module.exports = (function () {
 
   Stage.theme = 'theme';
 
+  // Dead End
   // define solids
   Stage.solids = Array();
 
   // Buttom Land
+
+  Stage.solids.push({ x: 0, y: Stage.height - 4, type: 'Land', attr: { frame: 1, repeat: { x: 10, y: 1 } } });
   for (var i = 0; i < 32; i++) {
     if (i<9){
       Stage.solids.push({ x: i, y: Stage.height - 3, type: 'Land', attr: {} });
