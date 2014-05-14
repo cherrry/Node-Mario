@@ -322,7 +322,14 @@ io.sockets.on('connection', function (socket) {
     if (room.state != 'play') {
       return;
     }
-
+    var players = room.players;
+    for (var i = 0; i < 4; i++) {
+	if(room.players[i] && room.players[i].id == data.id) {
+	    room.players[i].lives = data.lives;
+	    room.players[i].state = data.state;
+	    room.players[i].coins = data.coins;
+	}
+    }
     socket.broadcast.in('room_' + player.room.number).emit('player data update', data);
   });
 
@@ -354,6 +361,14 @@ io.sockets.on('connection', function (socket) {
       roomdata.collected[data.id] = Array();
     }
     roomdata.collected[data.id].push(player.id);
+
+    i/*var players = room.players;
+    for (int i = 0; i < 4; i++){
+        if(players[i] && players[i].id == player.id){
+	    players[i].coins++;
+	    break;
+	}
+    }*/
     io.sockets.in('room_' + player.room.number).emit('player collect object', { player: player.id, collectible: data.id, collect_index: roomdata.collected[data.id].length - 1 });
   });
 
@@ -388,6 +403,12 @@ io.sockets.on('connection', function (socket) {
       return;
     }
     var room = rooms[player.room.number];
+    /*var players = room.players;
+    for(int i = 0; i < 4; i++) {
+	if(players[i] && players[i].id == player.id) {
+	    plauers[i].lives--;
+	}
+    }*/
     var roomdata = gamedata[player.room.number];
     if (room.state != 'play') {
       return;
@@ -499,6 +520,10 @@ io.sockets.on('connection', function (socket) {
       roomdata.can_collect = false;
       roomdata.stage_ready_count = 0;
       roomdata.player_game_over_count = 0;
+      for (var i = 0; i < 4; i++){
+          if(room.players[i])
+               room.players[i].lives++;
+      }
       io.sockets.in('room_' + player.room.number).emit('game init', { world: WorldData[roomdata.world][roomdata.stage], players: room.players });
 
     } else {
