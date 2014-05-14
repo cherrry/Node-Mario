@@ -1,10 +1,10 @@
 module.exports = (function () {
   var World = Array();
 
-  for (var i=0; i<5; i++){
-  	World[i] = require('./w1/s' + (i+1) );
+  var levels = [6, 1, 2, 3, 4, 5];
+  for (var i=0; i<levels.length; i++){
+  	World[i] = require('./w1/s' + levels[i] );
   }
-  //World[0] = require('./w1/s3' );
 
   return World;
 })();
