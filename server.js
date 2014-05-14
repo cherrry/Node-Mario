@@ -309,6 +309,7 @@ io.sockets.on('connection', function (socket) {
           p.coins = 0;
           // change the default lives here
           p.lives = room.settings.life;
+	  p.state2 = 'small';
         }
       }
 
@@ -332,7 +333,7 @@ io.sockets.on('connection', function (socket) {
     for (var i = 0; i < 4; i++) {
 	if(room.players[i] && room.players[i].id == data.id) {
 	    room.players[i].lives = data.lives;
-	    room.players[i].state = data.state;
+	    room.players[i].state2 = data.state2;
 	    room.players[i].coins = data.coins;
 	}
     }
