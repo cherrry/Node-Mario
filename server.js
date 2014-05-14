@@ -212,8 +212,13 @@ io.sockets.on('connection', function (socket) {
     }
 
     var room = rooms[player.room.number];
+    var roomdata = gamedata[player.room.number];
     if (data.world) {
+      console.log('change world to', 'W' + data.world);
       room.settings.world = data.world;
+      console.log(roomdata);
+      roomdata.world = 'W' + data.world;
+      console.log(roomdata);
     }
     if (data.life) {
       room.settings.life = data.life;
@@ -295,7 +300,7 @@ io.sockets.on('connection', function (socket) {
       room.state = 'play';
       io.sockets.in('room_' + player.room.number).emit('start game response', { status: 'accept' });
       socket.broadcast.in('idle').emit('room status change', rooms);
-      gamedata[player.room.number] = { world: 'W1', stage: 0, collected: {}, can_collect: false, stage_ready_list: [], player_game_over_list: [] };
+      gamedata[player.room.number] = { world: gamedata[player.room.number].world, stage: 0, collected: {}, can_collect: false, stage_ready_list: [], player_game_over_list: [] };
       // initialize player state, e.g. coins and hp
       for(var i = 0; i < 4; i++){
         var p = rooms[player.room.number].players[i];
@@ -308,6 +313,7 @@ io.sockets.on('connection', function (socket) {
       }
 
       var roomdata = gamedata[player.room.number];
+      console.log('start game at world ' + roomdata.world);
       io.sockets.in('room_' + player.room.number).emit('game init', { world: WorldData[roomdata.world][0], players: room.players });
     } else {
       socket.emit('start game response', { status: 'reject' });
