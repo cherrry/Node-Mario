@@ -380,7 +380,7 @@ io.sockets.on('connection', function (socket) {
       return;
     }
 
-    io.sockets.in('room_' + player.room.number).emit('player yeah', { player: player.id });
+    io.sockets.in('room_' + player.room.number).emit('player yeah', { player: data.player });
   });
 
   socket.on('player die', function (data) {
@@ -510,17 +510,6 @@ io.sockets.on('connection', function (socket) {
     }
     var room = rooms[player.room.number];
     if (room.state != 'play') {
-      return;
-    }
-    var owner_check = (function () {
-      for (var i in room.players) {
-        if (room.players[i].id == data.player) {
-          return true;
-        }
-      }
-      return false;
-    }) ();
-    if (!owner_check) {
       return;
     }
 
