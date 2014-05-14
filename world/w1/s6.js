@@ -47,7 +47,7 @@ module.exports = (function () {
     }
   }
   // middle save invisible brick
-  Stage.collectibles.push({ x: 22, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m22', item: ['Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin'], visible:false } });
+  Stage.collectibles.push({ x: 22, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m22', item: ['Power-Up'], visible:false } });
   // dead end invisible brick
   Stage.collectibles.push({ x: 30, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m30', item: ['Coin'], visible:false } });
   Stage.collectibles.push({ x: 31, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m31', item: ['Coin'], visible:false } });
@@ -58,7 +58,7 @@ module.exports = (function () {
   var k = 0;
   for (var i=0; i<3; i++){
     for (var j=44-i; j<=45; j++){
-      Stage.collectibles.push({ x: j, y: 2+i*4, type: 'Brick', collidable: true, attr: { id: 'brick_' + k, item: ['Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin'], visible:true } });
+      Stage.collectibles.push({ x: j, y: 2+i*4, type: 'Brick', collidable: true, attr: { id: 'brick_co' + k, item: ['Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin'], visible:true } });
       k++;
     }
   }
