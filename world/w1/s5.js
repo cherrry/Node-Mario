@@ -6,6 +6,7 @@ module.exports = (function () {
 
   Stage.theme = 'theme';
 
+  // Final World
   // define solids
   Stage.solids = Array();
 
