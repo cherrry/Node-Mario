@@ -363,17 +363,21 @@ io.sockets.on('connection', function (socket) {
       return;
     }
 
+    if (data.id == 'flag') {
+      roomdata.can_collect = false;
+    }
+
     if (!(data.id in roomdata.collected)) {
       roomdata.collected[data.id] = Array();
     }
     roomdata.collected[data.id].push(player.id);
 
-    i/*var players = room.players;
+    /*var players = room.players;
     for (int i = 0; i < 4; i++){
-        if(players[i] && players[i].id == player.id){
-	    players[i].coins++;
-	    break;
-	}
+      if(players[i] && players[i].id == player.id){
+	      players[i].coins++;
+	      break;
+	    }
     }*/
     io.sockets.in('room_' + player.room.number).emit('player collect object', { player: player.id, collectible: data.id, collect_index: roomdata.collected[data.id].length - 1 });
   });
