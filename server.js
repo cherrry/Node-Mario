@@ -364,7 +364,8 @@ io.sockets.on('connection', function (socket) {
       return;
     }
 
-    if (data.id == 'flag') {
+    if (data.Type == 'Flag') {
+      console.log('Flag collected');
       roomdata.can_collect = false;
     }
 
