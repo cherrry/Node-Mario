@@ -42,6 +42,15 @@ module.exports = (function () {
   for (var i=36; i<=42; i+=3){
     Stage.collectibles.push({ x: i, y: Stage.height - 7, type: 'Brick', collidable: true, attr: { id: 'brickup_' + i, item: (function () { var item = []; for (var i = 0; i < 8; i++) { item[i] = 'One-Up'; } return item; })(), visible:true } }); 
   }
+
+  // Coins
+  // for (var i = 60; i <70; i++) {
+  //   for (var j = 0; j < Stage.height - 3; j++) {
+  //     if ((i+j)%2 == 1){
+  //       Stage.collectibles.push({ x: i, y: j, type: 'Coin', collidable: false, attr: { id: 'coin_1_' + i + '_' + j } });
+  //     }
+  //   }
+  // }
   
   // Flag
   Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -10, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
