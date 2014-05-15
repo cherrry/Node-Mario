@@ -5,6 +5,7 @@ module.exports = (function () {
   Stage.height = 15;
 
   Stage.theme = 'theme';
+  Stage.background = 'dark';
 
   // Final World
   // define solids
