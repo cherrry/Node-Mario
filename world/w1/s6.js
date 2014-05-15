@@ -1,7 +1,7 @@
 module.exports = (function () {
   var Stage = {};
 
-  Stage.width = 50;
+  Stage.width = 52;
   Stage.height = 15;
 
   Stage.theme = 'theme';
@@ -19,17 +19,17 @@ module.exports = (function () {
     // tube body
     var j;
     for (j=0; j<topTubeLength[i]-1; j++){
-      Stage.solids.push({ x: (8+i*5), y: j, type: 'Tube', attr: { frame: 1 } });
+      Stage.solids.push({ x: (10+i*5), y: j, type: 'Tube', attr: { frame: 1 } });
     }
-    Stage.solids.push({ x: (8+i*5), y: (j++), type: 'Tube', attr: { frame: 2 } });
+    Stage.solids.push({ x: (10+i*5), y: (j++), type: 'Tube', attr: { frame: 2 } });
     j+=5;
-    Stage.solids.push({ x: (8+i*5), y: (j++), type: 'Tube', attr: { frame: 0 } });
+    Stage.solids.push({ x: (10+i*5), y: (j++), type: 'Tube', attr: { frame: 0 } });
     for (; j<Stage.height; j++){
-      Stage.solids.push({ x: (8+i*5), y: j, type: 'Tube', attr: { frame: 1 } });
+      Stage.solids.push({ x: (10+i*5), y: j, type: 'Tube', attr: { frame: 1 } });
     }
   }
 
-  Stage.solids.push({ x: 41, y: Stage.height - 3, type: 'Land', attr: { frame: 23, repeat: { x: 1, y: 2 } } });
+  Stage.solids.push({ x: 43, y: Stage.height - 3, type: 'Land', attr: { frame: 23, repeat: { x: 1, y: 2 } } });
 
   // define collectibles
   Stage.collectibles = Array();
@@ -39,25 +39,25 @@ module.exports = (function () {
   for (var i=0; i<betweenObj.length; i++){
     // tube body
     if (betweenObj[i] == 0){
-      Stage.collectibles.push({ x: (10+i*5), y: Stage.height - 2, type: 'Water', collidable: true, attr: { type:'upward' } });
-      Stage.collectibles.push({ x: (11+i*5), y: Stage.height - 2, type: 'Water', collidable: true, attr: { type:'upward' } });
       Stage.collectibles.push({ x: (12+i*5), y: Stage.height - 2, type: 'Water', collidable: true, attr: { type:'upward' } });
+      Stage.collectibles.push({ x: (13+i*5), y: Stage.height - 2, type: 'Water', collidable: true, attr: { type:'upward' } });
+      Stage.collectibles.push({ x: (14+i*5), y: Stage.height - 2, type: 'Water', collidable: true, attr: { type:'upward' } });
     }else if (betweenObj[i] == 1){
-      Stage.collectibles.push({ x: (11+i*5), y: Stage.height - 2, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_' + i , color: 'brown', state: 'alive' } });
+      Stage.collectibles.push({ x: (13+i*5), y: Stage.height - 2, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_' + i , color: 'brown', state: 'alive' } });
     }
   }
   // middle save invisible brick
-  Stage.collectibles.push({ x: 22, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m22', item: ['Power-Up'], visible:false } });
+  Stage.collectibles.push({ x: 24, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m24', item: ['Power-Up'], visible:false } });
   // dead end invisible brick
-  Stage.collectibles.push({ x: 30, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m30', item: ['Coin'], visible:false } });
-  Stage.collectibles.push({ x: 31, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m31', item: ['Coin'], visible:false } });
   Stage.collectibles.push({ x: 32, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m32', item: ['Coin'], visible:false } });
+  Stage.collectibles.push({ x: 33, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m33', item: ['Coin'], visible:false } });
+  Stage.collectibles.push({ x: 34, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m34', item: ['Coin'], visible:false } });
   
   // before end game
-  Stage.collectibles.push({ x: 40, y: Stage.height - 2, type: 'Water', collidable: true, attr: { type:'upward' } });
+  Stage.collectibles.push({ x: 42, y: Stage.height - 2, type: 'Water', collidable: true, attr: { type:'upward' } });
   var k = 0;
   for (var i=0; i<3; i++){
-    for (var j=44-i; j<=45; j++){
+    for (var j=46-i; j<=47; j++){
       Stage.collectibles.push({ x: j, y: 2+i*4, type: 'Brick', collidable: true, attr: { id: 'brick_co' + k, item: ['Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin'], visible:true } });
       k++;
     }
