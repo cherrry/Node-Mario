@@ -74,9 +74,9 @@ module.exports = (function () {
   }
 
   // 3rd Content
-  // Stage.collectibles.push({ x: 31, y: Stage.height - 5, type: 'Water', collidable: true, attr: {type:'downward'} });
-  // Stage.collectibles.push({ x: 32, y: Stage.height - 5, type: 'Water', collidable: true, attr: {type:'downward'} });
-  // Stage.collectibles.push({ x: 33, y: Stage.height - 5, type: 'Water', collidable: true, attr: {type:'downward'} });
+  Stage.collectibles.push({ x: 31, y: Stage.height - 5, type: 'Water', collidable: true, attr: {type:'downward'} });
+  Stage.collectibles.push({ x: 32, y: Stage.height - 5, type: 'Water', collidable: true, attr: {type:'downward'} });
+  Stage.collectibles.push({ x: 33, y: Stage.height - 5, type: 'Water', collidable: true, attr: {type:'downward'} });
 
   // climb up invisible brick
   Stage.collectibles.push({ x: 44, y: 9, type: 'Brick', collidable: true, attr: { id: 'brick_44', item: ['Coin', 'Coin', 'Coin'], breakable: true, visible:false } });
