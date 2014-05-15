@@ -47,11 +47,11 @@ module.exports = (function () {
     }
   }
   // middle save invisible brick
-  Stage.collectibles.push({ x: 24, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m24', item: ['Power-Up'], visible:false } });
+  Stage.collectibles.push({ x: 24, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m24', item: ['Power-Up'], breakable: true, visible:false } });
   // dead end invisible brick
-  Stage.collectibles.push({ x: 32, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m32', item: ['Coin'], visible:false } });
-  Stage.collectibles.push({ x: 33, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m33', item: ['Coin'], visible:false } });
-  Stage.collectibles.push({ x: 34, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m34', item: ['Coin'], visible:false } });
+  Stage.collectibles.push({ x: 32, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m32', item: (function () { var item = []; for (var i = 0; i < 20; i++) { item[i] = null; } return item; })(), breakable: true, visible:false } });
+  Stage.collectibles.push({ x: 33, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m33', item: (function () { var item = []; for (var i = 0; i < 50; i++) { item[i] = null; } return item; })(), breakable: true, visible:false } });
+  Stage.collectibles.push({ x: 34, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_m34', item: (function () { var item = []; for (var i = 0; i < 50; i++) { item[i] = null; } return item; })(), breakable: true, visible:false } });
   
   // before end game
   Stage.collectibles.push({ x: 42, y: Stage.height - 2, type: 'Water', collidable: true, attr: { type:'upward' } });

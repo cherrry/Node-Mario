@@ -22,7 +22,7 @@ module.exports = (function () {
     Stage.solids.push( { x: 20, y: Stage.height - 10, type: 'Land', attr: { frame: 37, repeat: { x: 1, y: 9} } });
     Stage.solids.push( { x: 21, y: Stage.height - 10, type: 'Land', attr: { frame: 38, repeat: { x: 1, y: 9} } });
 
-    Stage.solids.push( { x: 25, y: Stage.height - 5, type: 'Land', attr: { frame: 35, repeat: { x: 6, y: 1} } });
+    //Stage.solids.push( { x: 25, y: Stage.height - 5, type: 'Land', attr: { frame: 35, repeat: { x: 6, y: 1} } });
 
     Stage.solids.push( { x: 33, y: 0, type: 'Land', attr: { frame: 35, repeat: { x: 1, y: Stage.height-2} } });
     Stage.solids.push( { x: 42, y: 3, type: 'Land', attr: { frame: 35, repeat: { x: 1, y: Stage.height-4} } });
@@ -39,6 +39,10 @@ module.exports = (function () {
 
     for (var i = 10; i < 14; i++) {
         Stage.collectibles.push({ x: i, y: Stage.height - 9, type: 'Brick', collidable: true, attr: { id: 'brick_' + (i+10), item: [], visible:false } });
+    }
+
+    for (var i= 25; i < 31; i++){
+        Stage.collectibles.push({ x: i, y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_bottom_' + i, item: ['Mushroom', 'Mushroom'], breakable: true, visible:true } });
     }
 
     for (var i = 26; i < 31; i++) {
