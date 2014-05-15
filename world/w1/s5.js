@@ -5,45 +5,46 @@ module.exports = (function () {
   Stage.height = 15;
 
   Stage.theme = 'theme';
+  Stage.background = 'dark';
 
   // Final World
   // define solids
   Stage.solids = Array();
 
   // Base Land
-  Stage.solids.push({ x: 0, y: Stage.height - 2, type: 'Land', attr: { frame: 35, repeat: { x: 10, y: 2 } } });
+  Stage.solids.push({ x: 0, y: Stage.height - 2, type: 'Land', attr: { frame: 59, repeat: { x: 10, y: 2 } } });
 
-  Stage.solids.push({ x: 11, y: Stage.height - 2, type: 'Land', attr: { frame: 35, repeat: { x: 3, y: 2 } } });
+  Stage.solids.push({ x: 11, y: Stage.height - 2, type: 'Land', attr: { frame: 59, repeat: { x: 3, y: 2 } } });
 
-  Stage.solids.push({ x: 17, y: Stage.height - 2, type: 'Land', attr: { frame: 35, repeat: { x: 2, y: 1 } } });
-  Stage.solids.push({ x: 24, y: Stage.height - 2, type: 'Land', attr: { frame: 35, repeat: { x: 3, y: 1 } } });
-  Stage.solids.push({ x: 17, y: Stage.height - 1, type: 'Land', attr: { frame: 35, repeat: { x: 10, y: 1 } } });
+  Stage.solids.push({ x: 17, y: Stage.height - 2, type: 'Land', attr: { frame: 59, repeat: { x: 2, y: 1 } } });
+  Stage.solids.push({ x: 24, y: Stage.height - 2, type: 'Land', attr: { frame: 59, repeat: { x: 3, y: 1 } } });
+  Stage.solids.push({ x: 17, y: Stage.height - 1, type: 'Land', attr: { frame: 59, repeat: { x: 10, y: 1 } } });
 
-  Stage.solids.push({ x: 29, y: Stage.height - 2, type: 'Land', attr: { frame: 35, repeat: { x: 2, y: 1 } } });
-  Stage.solids.push({ x: 33, y: Stage.height - 2, type: 'Land', attr: { frame: 35, repeat: { x: 2, y: 1 } } });
-  Stage.solids.push({ x: 38, y: Stage.height - 2, type: 'Land', attr: { frame: 35, repeat: { x: 3, y: 1 } } });
-  Stage.solids.push({ x: 29, y: Stage.height - 1, type: 'Land', attr: { frame: 35, repeat: { x: 12, y: 1 } } });
+  Stage.solids.push({ x: 29, y: Stage.height - 2, type: 'Land', attr: { frame: 59, repeat: { x: 2, y: 1 } } });
+  Stage.solids.push({ x: 33, y: Stage.height - 2, type: 'Land', attr: { frame: 59, repeat: { x: 2, y: 1 } } });
+  Stage.solids.push({ x: 38, y: Stage.height - 2, type: 'Land', attr: { frame: 59, repeat: { x: 3, y: 1 } } });
+  Stage.solids.push({ x: 29, y: Stage.height - 1, type: 'Land', attr: { frame: 59, repeat: { x: 12, y: 1 } } });
 
 
-  Stage.solids.push({ x: 44, y: Stage.height - 2, type: 'Land', attr: { frame: 35, repeat: { x: 5, y: 2 } } });
+  Stage.solids.push({ x: 44, y: Stage.height - 2, type: 'Land', attr: { frame: 59, repeat: { x: 5, y: 2 } } });
   for (var i = 0; i < 3; i++) {
-    Stage.solids.push({ x: 47 - i , y: Stage.height - 5 + i, type: 'Land', attr: { frame: 35, repeat: { x: i+2, y: 1 } } });
+    Stage.solids.push({ x: 47 - i , y: Stage.height - 5 + i, type: 'Land', attr: { frame: 59, repeat: { x: i+2, y: 1 } } });
   }
 
   // Upper Block
-  Stage.solids.push({ x: 9, y: 2, type: 'Land', attr: { frame: 35, repeat: { x: 1, y: 9 } } });
-  Stage.solids.push({ x: 11, y: 2, type: 'Land', attr: { frame: 35, repeat: { x: 1, y: 9 } } });
-  Stage.solids.push({ x: 12, y: 2, type: 'Land', attr: { frame: 35, repeat: { x: 4, y: 1 } } });
-  Stage.solids.push({ x: 17, y: 2, type: 'Land', attr: { frame: 35, repeat: { x: 10, y: 1 } } });
-  Stage.solids.push({ x: 28, y: 2, type: 'Land', attr: { frame: 35, repeat: { x: 13, y: 1 } } });
+  Stage.solids.push({ x: 9, y: 2, type: 'Land', attr: { frame: 59, repeat: { x: 1, y: 9 } } });
+  Stage.solids.push({ x: 11, y: 2, type: 'Land', attr: { frame: 59, repeat: { x: 1, y: 9 } } });
+  Stage.solids.push({ x: 12, y: 2, type: 'Land', attr: { frame: 59, repeat: { x: 4, y: 1 } } });
+  Stage.solids.push({ x: 17, y: 2, type: 'Land', attr: { frame: 59, repeat: { x: 10, y: 1 } } });
+  Stage.solids.push({ x: 28, y: 2, type: 'Land', attr: { frame: 59, repeat: { x: 13, y: 1 } } });
 
-  Stage.solids.push({ x: 17, y: 3, type: 'Land', attr: { frame: 35, repeat: { x: 1, y: 8 } } });
-  Stage.solids.push({ x: 30, y: 3, type: 'Land', attr: { frame: 35, repeat: { x: 1, y: 8 } } });
-  Stage.solids.push({ x: 39, y: 3, type: 'Land', attr: { frame: 35, repeat: { x: 1, y: 8 } } });
+  Stage.solids.push({ x: 17, y: 3, type: 'Land', attr: { frame: 59, repeat: { x: 1, y: 8 } } });
+  Stage.solids.push({ x: 30, y: 3, type: 'Land', attr: { frame: 59, repeat: { x: 1, y: 8 } } });
+  Stage.solids.push({ x: 39, y: 3, type: 'Land', attr: { frame: 59, repeat: { x: 1, y: 8 } } });
 
-  Stage.solids.push({ x: 18, y: 10, type: 'Land', attr: { frame: 35, repeat: { x: 8, y: 1 } } });
-  Stage.solids.push({ x: 31, y: 9, type: 'Land', attr: { frame: 35, repeat: { x: 8, y: 1 } } });
-  Stage.solids.push({ x: 34, y: 10, type: 'Land', attr: { frame: 35, repeat: { x: 6, y: 1 } } });
+  Stage.solids.push({ x: 18, y: 10, type: 'Land', attr: { frame: 59, repeat: { x: 8, y: 1 } } });
+  Stage.solids.push({ x: 31, y: 9, type: 'Land', attr: { frame: 59, repeat: { x: 8, y: 1 } } });
+  Stage.solids.push({ x: 34, y: 10, type: 'Land', attr: { frame: 59, repeat: { x: 6, y: 1 } } });
 
   // define collectibles
   Stage.collectibles = Array();
