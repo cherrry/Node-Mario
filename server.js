@@ -417,12 +417,6 @@ io.sockets.on('connection', function (socket) {
       return;
     }
     var room = rooms[player.room.number];
-    /*var players = room.players;
-    for(int i = 0; i < 4; i++) {
-	if(players[i] && players[i].id == player.id) {
-	    plauers[i].lives--;
-	}
-    }*/
     var roomdata = gamedata[player.room.number];
     if (room.state != 'play') {
       return;
@@ -465,6 +459,9 @@ io.sockets.on('connection', function (socket) {
       for (var i = 0; i < room.players.length; i += 1){
         if (room.players[i] != null) {
           ret += 1;
+        }
+        if(room.players[i] && room.players[i].id == data.player) {
+            room.players[i].lives = 0;
         }
       }
       return ret;
