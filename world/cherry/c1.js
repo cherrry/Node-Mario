@@ -37,16 +37,16 @@ module.exports = (function () {
   // hidden brick
   var brick_id = 0;
   var brick_item = [
-    [ 'Coin', 'Coin', 'Coin', 'Coin', 'Coin' ],
-    [ 'Coin', 'OneUp', 'Coin', 'OneUp', 'Coin' ],
-    [], [],
-    (function () { var coins = []; for (var i = 0; i < 200; i++) { coins[i] = 'Coin'; } return coins; })(),  
+    [ 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', null ],
+    [ 'Coin', 'OneUp', 'Coin', 'OneUp', 'Coin', null ],
+    [ null ], [ null ],
+    (function () { var coins = []; for (var i = 0; i < 200; i++) { coins[i] = 'Coin'; } coins.push(null); return coins; })(),  
     [ 'Mushroom', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'PowerUp' ]
   ];
   for (var i = 0; i < brick_item.length; i++) {
     Stage.collectibles.push({ x: 21 + i, y: Stage.height - 6, type: 'Water', collidable: true, attr: { type: 'downward' } });
     if (brick_item[i].length > 0) {
-      Stage.collectibles.push({ x: 21 + i , y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_' + (brick_id++), item: brick_item[i], visible: (i == 0) } });
+      Stage.collectibles.push({ x: 21 + i , y: Stage.height - 5, type: 'Brick', collidable: true, attr: { id: 'brick_' + (brick_id++), item: brick_item[i], breakable: true, visible: (i == 0) } });
     }
   }
   Stage.solids.push({ x: 21, y: 8, type: 'Land', attr: { frame: 23, repeat: { x: 6, y: 1 } } });
