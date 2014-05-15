@@ -5,6 +5,7 @@ module.exports = (function () {
   Stage.height = 15;
 
   Stage.theme = 'theme3';
+  Stage.background = 'dark';
 
   // Solids
   Stage.solids = Array();
