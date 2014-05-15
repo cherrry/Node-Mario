@@ -121,7 +121,7 @@ module.exports = (function () {
 
   // hidden brick enabled by lower player
   for (var i = 0; i < 8; i++) {
-    Stage.collectibles.push({ x: 30 + i, y: 4, type: 'Brick', collidable: true, attr: { id: 'brick_' + (brick_id++), item: [], visible: false } });
+    Stage.collectibles.push({ x: 30 + i, y: 4, type: 'Brick', collidable: true, attr: { id: 'brick_' + (brick_id++), item: [ null ], visible: false , breakable: (i % 2) } });
   } // TODO: should be invisible
 
   Stage.solids.push({ x: 39, y: 1, type: 'Land', attr: { frame: 4 } });
