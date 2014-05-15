@@ -1,7 +1,7 @@
 module.exports = (function () {
   var World = Array();
 
-  var levels = [7, 9];
+  var levels = [2, 9, 7];
   for (var i=0; i<levels.length; i++){
   	World[i] = require('./w1/s' + levels[i] );
   }

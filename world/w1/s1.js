@@ -40,7 +40,6 @@ module.exports = (function () {
   Stage.collectibles.push({ x: 9, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_0', color: 'brown', state: 'alive' } });
   Stage.collectibles.push({ x: 16, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_1', color: 'brown', state: 'alive' } });
   Stage.collectibles.push({ x: 18, y: 13, type: 'Mushroom', collidable: true, attr: { id: 'mushroom_2', color: 'brown', state: 'alive' } });
-  Stage.collectibles.push({ x: 28, y: 13, type: 'Box', collidable: true, attr: { id: 'box_0' } });
 
   Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -9, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
   Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -9, type: 'Flag', collidable: false, attr: { id: 'flag', music: 'end-level' } });
