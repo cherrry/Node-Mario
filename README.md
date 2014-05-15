@@ -17,17 +17,12 @@ The game is a 2D platform side­scroller with multiple players. All players play
 ## Programming Challenges
 
 1. Physics engine (phaser.io)
-2. Websocket (socket.io or pusher)
+2. WebSocket (socket.io)
 
 ## Deployment Scenarios
 
-1. Github Pages
-2. AWS
-
-## System Design
-
-1. Multiple game rooms
-2. Multiple players
+1. Github Pages (for static contents)
+2. Department Machines (for node.js server)
 
 ## Milestones
 
@@ -50,3 +45,19 @@ The game is a 2D platform side­scroller with multiple players. All players play
 | Room    | E     | **Game rooms**                           | 5     |
 |         |       | 1. List of available room                |       |
 |         |       | 2. Waiting game to start                 |       |
+
+## Code Usage
+
+### Client Side
+
+1. Client side is directly accessible from [N-Mario's Github Page](https://cherrry.github.io/N-Mario).
+2. Player may enter a server address with port number after page load.
+3. Player may change his/her name by clicking the top-right box.
+4. Other usage are quite trivial.
+
+### Server Side
+
+1. Server can be cloned from [cherrry/Node-Mario](https://www.github.com/cherrry/Node-Mario) using `git clone git@github.com:cherrry/Node-Mario.git`.
+
+2. Inside the folder, run `npm install`, then `node server.js`.
+3. By default, player access the server via `localhost:8000`, and it is set to allow `cherrry.github.io` to perform cross domain request.
