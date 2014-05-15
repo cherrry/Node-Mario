@@ -4,7 +4,7 @@ module.exports = (function () {
   Stage.width = 50;
   Stage.height = 15;
 
-  Stage.theme = 'theme3';
+  Stage.theme = 'theme_usa';
 
   Stage.solids = Array();
   Stage.collectibles = Array();
