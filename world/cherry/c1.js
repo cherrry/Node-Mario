@@ -70,9 +70,9 @@ module.exports = (function () {
   Stage.collectibles.push({ x: 16, y: 3, type: 'Mushroom', collidable: true, attr: { id: 'upper_mushroom_a' } });
   // Stage.solids.push({ x: 2, y: Stage.height - 5, type: 'Land', attr: { frame: 0 } }); // TODO: should be removed
 
-  Stage.solids.push({ x: 4, y: 0, type: 'Land', attr: { frame: 39, repeat: { x: 1, y: 7 } } }); // TODO: repeat y should be 7
-  Stage.solids.push({ x: 4, y: 7, type: 'Land', attr: { frame: 32, repeat: { x: 1, y: 1 } } });
-  Stage.solids.push({ x: 5, y: 7, type: 'Land', attr: { frame: 5, repeat: { x: 5, y: 1 } } });
+  Stage.solids.push({ x: 3, y: 0, type: 'Land', attr: { frame: 39, repeat: { x: 1, y: 7 } } }); // TODO: repeat y should be 7
+  Stage.solids.push({ x: 3, y: 7, type: 'Land', attr: { frame: 32, repeat: { x: 1, y: 1 } } });
+  Stage.solids.push({ x: 4, y: 7, type: 'Land', attr: { frame: 5, repeat: { x: 6, y: 1 } } });
 
   Stage.solids.push({ x: 10, y: 0, type: 'Tube', attr: { frame: 1 } });
   Stage.solids.push({ x: 10, y: 1, type: 'Tube', attr: { frame: 1 } });
