@@ -574,7 +574,7 @@ io.sockets.on('connection', function (socket) {
         }
       }
 
-      io.sockets.in('room_' + player.room.number).emit('go back to game room');
+      io.sockets.in('room_' + player.room.number).emit('go back to game room', room);
       io.sockets.in('room_' + player.room.number).emit('room status change', room);
       socket.broadcast.in('idle').emit('room status change', rooms);
     }
