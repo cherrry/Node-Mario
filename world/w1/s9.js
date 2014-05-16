@@ -4,7 +4,7 @@ module.exports = (function () {
   Stage.width = 50;
   Stage.height = 15;
 
-  Stage.theme = 'theme';
+  Stage.theme = 'theme_usa';
   Stage.background = 'dark';
 
   // Big and Small
@@ -90,7 +90,7 @@ module.exports = (function () {
 
   // Flag
   Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -10, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
-  Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -10, type: 'Flag', collidable: false, attr: { id: 'flag', music: 'end-game' } });
+  Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -10, type: 'Flag', collidable: false, attr: { id: 'flag', music: 'end-level' } });
 
 
   return Stage;

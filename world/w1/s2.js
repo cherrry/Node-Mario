@@ -4,7 +4,7 @@ module.exports = (function () {
   Stage.width = 75;
   Stage.height = 15;
 
-  Stage.theme = 'theme';
+  Stage.theme = 'theme3';
   Stage.background = 'dark';
 
   // Big lava
@@ -54,7 +54,7 @@ module.exports = (function () {
   
   // Flag
   Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -10, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
-  Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -10, type: 'Flag', collidable: false, attr: { id: 'flag', music: 'end-game' } });
+  Stage.collectibles.push({ x: Stage.width - 4, y: Stage.height -10, type: 'Flag', collidable: false, attr: { id: 'flag', music: 'end-level' } });
 
 
   return Stage;

@@ -4,7 +4,7 @@ module.exports = (function () {
   Stage.width = 52;
   Stage.height = 15;
 
-  Stage.theme = 'theme';
+  Stage.theme = 'theme_usa';
 
   // Flappy bird
   // define solids

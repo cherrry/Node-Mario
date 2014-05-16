@@ -4,7 +4,7 @@ module.exports = (function () {
   Stage.width = 65;
   Stage.height = 15;
 
-  Stage.theme = 'theme3';
+  Stage.theme = 'theme';
   Stage.background = 'dark';
 
   // Solids
