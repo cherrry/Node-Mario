@@ -75,8 +75,11 @@ module.exports = (function () {
       k++;    
     }
   }
-  Stage.collectibles.push({ x: 42, y: Stage.height - 11, type: 'Brick', collidable: true, attr: { id: 'brickq_' + k, item: ['Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin'], visible:false } });
-
+  for (var i=11; i<=13; i++){
+    Stage.collectibles.push({ x: 42, y: Stage.height - i, type: 'Brick', collidable: true, attr: { id: 'brickq_' + k, item: ['Coin', 'Coin', 'Coin', 'Coin'], breakable: true, visible:false } });
+    k++;  
+  }
+  
   // Flag
   Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height - 10, type: 'Flagpole', collidable: false, attr: { id: 'flagpole' } });
   Stage.collectibles.push({ x: Stage.width - 3, y: Stage.height - 10, type: 'Flag', collidable: false, attr: { id: 'flag', music: 'end-level' } });

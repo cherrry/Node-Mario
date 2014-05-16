@@ -40,7 +40,7 @@ module.exports = (function () {
   
   // 1-ups 
   for (var i=36; i<=42; i+=3){
-    Stage.collectibles.push({ x: i, y: Stage.height - 7, type: 'Brick', collidable: true, attr: { id: 'brickup_' + i, item: (function () { var item = []; for (var i = 0; i < 8; i++) { item[i] = 'One-Up'; } return item; })(), visible:true } }); 
+    Stage.collectibles.push({ x: i, y: Stage.height - 7, type: 'Brick', collidable: true, attr: { id: 'brickup_' + i, item: (function () { var item = []; for (var i = 0; i < 28; i++) { item[i] = 'One-Up'; } return item; })(), breakable: true, visible:true } }); 
   }
 
   // Coins

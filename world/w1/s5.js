@@ -79,9 +79,9 @@ module.exports = (function () {
   Stage.collectibles.push({ x: 33, y: Stage.height - 5, type: 'Water', collidable: true, attr: {type:'downward'} });
 
   // climb up invisible brick
-  Stage.collectibles.push({ x: 44, y: 9, type: 'Brick', collidable: true, attr: { id: 'brick_44', item: ['Coin'], visible:false } });
-  Stage.collectibles.push({ x: 43, y: 6, type: 'Brick', collidable: true, attr: { id: 'brick_43', item: ['Coin'], visible:false } });
-  Stage.collectibles.push({ x: 42, y: 3, type: 'Brick', collidable: true, attr: { id: 'brick_42', item: ['Coin'], visible:false } });
+  Stage.collectibles.push({ x: 44, y: 9, type: 'Brick', collidable: true, attr: { id: 'brick_44', item: ['Coin', 'Coin', 'Coin'], breakable: true, visible:false } });
+  Stage.collectibles.push({ x: 43, y: 6, type: 'Brick', collidable: true, attr: { id: 'brick_43', item: ['Coin', 'Coin', 'Coin'], breakable: true, visible:false } });
+  Stage.collectibles.push({ x: 42, y: 3, type: 'Brick', collidable: true, attr: { id: 'brick_42', item: ['Coin', 'Coin', 'Coin'], breakable: true, visible:false } });
 
   // Upper Coins
   for (var i=9; i<42; i++){
