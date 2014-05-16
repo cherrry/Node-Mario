@@ -460,9 +460,9 @@ io.sockets.on('connection', function (socket) {
         if (room.players[i] != null) {
           ret += 1;
         }
-        if(room.players[i] && room.players[i].id == data.player) {
-            room.players[i].lives = 0;
-        }
+//        if(room.players[i] && room.players[i].id == data.player) {
+//            room.players[i].lives = 0;
+//        }
       }
       return ret;
     }) ();
@@ -563,6 +563,10 @@ io.sockets.on('connection', function (socket) {
 
     } else {
       room.state = 'full';
+      for (var i = 0; i < 4; i++){
+          if(room.players[i])
+               room.players[i].lives++;
+      }
       for (var i = 0; i < 4; i++) {
         if (room.players[i] == null) {
           room.state = 'wait';
