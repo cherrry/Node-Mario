@@ -39,7 +39,7 @@ module.exports = (function () {
   var brick_item = [
     [ 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', null ],
     [ 'Coin', 'OneUp', 'Coin', 'OneUp', 'Coin', null ],
-    [ null ], [ null ],
+    [], [],
     (function () { var coins = []; for (var i = 0; i < 200; i++) { coins[i] = 'Coin'; } coins.push(null); return coins; })(),  
     [ 'Mushroom', 'Coin', 'Coin', 'Coin', 'Coin', 'Coin', 'PowerUp' ]
   ];
