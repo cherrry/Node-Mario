@@ -60,4 +60,4 @@ The game is a 2D platform side­scroller with multiple players. All players play
 1. Server can be cloned from [cherrry/Node-Mario](https://www.github.com/cherrry/Node-Mario) using `git clone git@github.com:cherrry/Node-Mario.git`.
 
 2. Inside the folder, run `npm install`, then `node server.js`.
-3. By default, player access the server via `localhost:8000`, and it is set to allow `cherrry.github.io` to perform cross domain request.
+3. By default, player access the server via `localhost:21474`, and it is set to allow `cherrry.github.io` to perform cross domain request.
